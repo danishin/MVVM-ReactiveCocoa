@@ -11,9 +11,22 @@ import ReactiveCocoa
 import Result
 
 class ViewController: UIViewController {
+  @IBOutlet weak var textField: UITextField!
+  @IBOutlet weak var searchButton: UIButton!
+  @IBOutlet weak var progressView: UIProgressView!
+  
+  @IBOutlet weak var usernameLabel: UILabel!
+  @IBOutlet weak var emailLabel: UILabel!
+  
+  var vm: ViewModel!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    vm.text <~ textField.toSignalProducer { $0 as! String }
+    searchButton =>> vm.searchImage
+    usernameLabel.rac_text <~ vm.username
+    emailLabel.rac_text <~ vm.email
   }
 
   override func didReceiveMemoryWarning() {

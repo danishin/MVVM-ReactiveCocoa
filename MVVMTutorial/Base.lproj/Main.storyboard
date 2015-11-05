@@ -30,34 +30,45 @@
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="B6g-fn-Rdx">
                                 <rect key="frame" x="20" y="104" width="560" height="2"/>
                             </progressView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VGW-Gh-4UP">
-                                <rect key="frame" x="20" y="114" width="560" height="466"/>
-                                <color key="backgroundColor" white="0.90000000000000002" alpha="1" colorSpace="calibratedWhite"/>
-                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AcE-fn-IpG">
+                                <rect key="frame" x="20" y="114" width="560" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="email:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sAm-GT-08V">
+                                <rect key="frame" x="20" y="143" width="560" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="leadingMargin" secondItem="VGW-Gh-4UP" secondAttribute="leading" id="0LP-5N-wJo"/>
                             <constraint firstItem="cnY-Uw-fuX" firstAttribute="top" secondItem="i2F-ds-uYk" secondAttribute="bottom" constant="8" id="4fA-j9-CRb"/>
                             <constraint firstAttribute="leadingMargin" secondItem="B6g-fn-Rdx" secondAttribute="leading" id="543-OA-KPs"/>
                             <constraint firstAttribute="leadingMargin" secondItem="i2F-ds-uYk" secondAttribute="leading" id="7oo-4h-Yhb"/>
+                            <constraint firstItem="sAm-GT-08V" firstAttribute="top" secondItem="AcE-fn-IpG" secondAttribute="bottom" constant="8" id="9ns-CP-BF5"/>
                             <constraint firstItem="cnY-Uw-fuX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Euo-uY-dvp"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="VGW-Gh-4UP" secondAttribute="trailing" id="HNu-eS-Ble"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="AcE-fn-IpG" secondAttribute="trailing" id="H1n-eC-FVF"/>
                             <constraint firstItem="i2F-ds-uYk" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="JVs-1P-mT8"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="VGW-Gh-4UP" secondAttribute="bottom" constant="20" id="Lsk-nw-QAI"/>
                             <constraint firstAttribute="trailingMargin" secondItem="B6g-fn-Rdx" secondAttribute="trailing" id="S3l-4i-nns"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="sAm-GT-08V" secondAttribute="trailing" id="TjK-Ez-Htd"/>
                             <constraint firstItem="B6g-fn-Rdx" firstAttribute="top" secondItem="cnY-Uw-fuX" secondAttribute="bottom" constant="8" id="UHV-zA-v58"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="AcE-fn-IpG" secondAttribute="leading" id="VVm-lz-obQ"/>
                             <constraint firstItem="B6g-fn-Rdx" firstAttribute="centerX" secondItem="cnY-Uw-fuX" secondAttribute="centerX" id="b4J-kv-OeD"/>
+                            <constraint firstItem="AcE-fn-IpG" firstAttribute="top" secondItem="B6g-fn-Rdx" secondAttribute="bottom" constant="8" id="jbK-nB-bQy"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="sAm-GT-08V" secondAttribute="leading" id="os3-wH-OtB"/>
                             <constraint firstAttribute="trailingMargin" secondItem="i2F-ds-uYk" secondAttribute="trailing" id="s1M-OJ-QOH"/>
-                            <constraint firstItem="VGW-Gh-4UP" firstAttribute="top" secondItem="B6g-fn-Rdx" secondAttribute="bottom" constant="8" id="tiZ-KH-6UJ"/>
-                            <constraint firstItem="VGW-Gh-4UP" firstAttribute="top" secondItem="cnY-Uw-fuX" secondAttribute="bottom" constant="8" id="yHL-53-jvh"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="yHL-53-jvh"/>
-                            </mask>
-                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="emailLabel" destination="sAm-GT-08V" id="lla-5J-j86"/>
+                        <outlet property="progressView" destination="B6g-fn-Rdx" id="bT9-Qv-TV4"/>
+                        <outlet property="searchButton" destination="cnY-Uw-fuX" id="VAB-CN-r1C"/>
+                        <outlet property="textField" destination="i2F-ds-uYk" id="sCc-O1-CMx"/>
+                        <outlet property="usernameLabel" destination="AcE-fn-IpG" id="9pe-Cn-ddi"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
