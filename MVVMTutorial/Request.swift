@@ -7,16 +7,15 @@
 //
 
 import Alamofire
-import SwiftyJSON
+import Decodable
 
-protocol ResponseDataType {}
+protocol ResponseDataType: Decodable {}
 
 protocol HttpRequest {
   typealias ResponseData: ResponseDataType
   
   var method: Alamofire.Method { get }
   var info: (String, [String: AnyObject]) { get }
-  func parse(json: SwiftyJSON.JSON) -> ResponseData?
 }
 
 extension HttpRequest {

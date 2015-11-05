@@ -7,7 +7,7 @@
 //
 
 import Alamofire
-import SwiftyJSON
+import Decodable
 
 protocol GET: HttpRequest { typealias ResponseData: GETResponseData }
 extension GET { var method: Alamofire.Method { return Alamofire.Method.GET } }
@@ -18,15 +18,15 @@ struct GETRandomUser: GET {
   let keyword: String
   
   var info: (String, [String: AnyObject]) { return ("https://randomuser.me/api", ["gender": keyword]) }
-  
-  struct ResponseData: GETResponseData { let username: String; let email: String }
-  func parse(j: SwiftyJSON.JSON) -> ResponseData? {
-    guard
-      let u = j["results"].array?.first?["user"],
-      let username = u["username"].string,
-      let email = u["email"].string
-    else { return nil }
+  struct ResponseData: GETResponseData {
+    let users: [User]
+    let nationality: String
     
-    return ResponseData(username: username, email: email)
+    static func decode(j: AnyObject) throws -> ResponseData {
+      return try ResponseData(
+        users: j => "results",
+        nationality: j => "nationality"
+      )
+    }
   }
 }

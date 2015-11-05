@@ -9,28 +9,24 @@
 import UIKit
 import Swinject
 
+extension SwinjectStoryboard {
+  class func setup() {
+    let c = defaultContainer
+    
+    c.register(Http.self) { r, a1 in DefaultHttp(baseURL: a1) }
+    c.register(ViewModel.self) { r in ViewModel(http: r.resolve(Http.self, arg1: "")!) }
+    
+    c.registerForStoryboard(ViewController.self) { r, vc in
+      vc.vm = r.resolve(ViewModel.self)
+    }
+  }
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
   var window: UIWindow?
-  var container: Container {
-    let c = Container()
-    
-    c.register(Http.self) { _ in DefaultHttp() }
-    c.register(ViewModel.self) { r in ViewModel(http: r.resolve(Http.self)!) }
-    c.registerForStoryboard(ViewController.self) { r, c in
-      c.vm = r.resolve(ViewModel.self)
-    }
-    
-    return c
-  }
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    
-    let storyboard = SwinjectStoryboard.create(name: "Main", bundle: NSBundle(forClass: ViewController.self), container: container)
-    window?.rootViewController = storyboard.instantiateInitialViewController()
-    
-    // Override point for customization after application launch.
     return true
   }
 

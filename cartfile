@@ -1,5 +1,5 @@
 github "ReactiveCocoa/ReactiveCocoa" "v4.0-alpha.1"
 github "Swinject/Swinject" ~> 0.3
-github "SwiftyJSON/SwiftyJSON"
 github "Alamofire/Alamofire" ~> 3.0
 github "typelift/Swiftz" ~> 0.3.1
+github "Anviking/Decodable" ~> 0.3.3

@@ -8,16 +8,15 @@
 
 import Alamofire
 import ReactiveCocoa
-import SwiftyJSON
 
 private extension Request {
-  func toSignalProducer<HR: HttpRequest>(hr: HR) -> SignalProducer<HR.ResponseData, AppError> {
+  func toSignalProducer<HR: HttpRequest>(hr: HR.Type) -> SignalProducer<HR.ResponseData, AppError> {
     return SignalProducer { (sink, _) in
-      self.response { (request, response, data, error) -> Void in
-//        if let error = error { return sendError(sink, AppError.Network(error)) }
-        if let error = error { fatalError(error.description) }
-        print(JSON(data: data!))
-        guard let data = data, let responseData = hr.parse(SwiftyJSON.JSON(data: data)) else { fatalError() }
+      self.responseJSON { r in
+        if let error = r.result.error { fatalError(error.description) }
+        guard let json = r.result.value else { fatalError() }
+        
+        let responseData = try! hr.ResponseData.decode(json)
         
         sendNext(sink, responseData)
         sendCompleted(sink)
@@ -31,8 +30,10 @@ protocol Http {
 }
 
 struct DefaultHttp: Http {
+  let baseURL: String
+  
   func exec<HR: HttpRequest>(hr: HR) -> SignalProducer<HR.ResponseData, AppError> {
-    return Alamofire.request(hr.urlRequest).toSignalProducer(hr)
+    return Alamofire.request(hr.urlRequest).toSignalProducer(hr.dynamicType)
   }
 }
 

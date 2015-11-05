@@ -1,4 +1,5 @@
 github "Alamofire/Alamofire" "3.1.1"
+github "Anviking/Decodable" "v0.3.3"
 github "antitypical/Result" "76f9a972ed61ff872b731460bc610c8acbfae58c"
 github "SwiftyJSON/SwiftyJSON" "2.3.1"
 github "typelift/Swiftz" "v0.3.1"

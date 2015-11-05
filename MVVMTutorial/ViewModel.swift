@@ -21,16 +21,9 @@ class ViewModel {
       http.exec(GETRandomUser(keyword: $0))
         .on(next: {
           print($0)
-          self.username.value = $0.username
-          self.email.value = $0.email
+//          self.username.value = $0.users
+//          self.email.value = $0.email
         })
       }, input: text.value)
-//    searchImage = http.exec(GETGoogleImage(keyword: text.value)).map { a in UIImage() }.on(next: { _ in print("FETCHING !") })
-    
-//    let _ = Action(enabledIf: isIdle) { (text: String) -> SignalProducer<GETRandomUser.ResponseData, AppError> in
-//      self.isIdle.value = false
-//      return http.exec(GETRandomUser(keyword: text))
-//        .on(next: { _ in self.isIdle.value = false })
-//    }
   }
 }
