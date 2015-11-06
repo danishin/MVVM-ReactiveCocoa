@@ -9,10 +9,8 @@
 import Alamofire
 import Decodable
 
-protocol ResponseDataType: Decodable {}
-
 protocol HttpRequest {
-  typealias ResponseData: ResponseDataType
+  typealias ResponseData: Decodable
   
   var method: Alamofire.Method { get }
   var info: (String, [String: AnyObject]) { get }

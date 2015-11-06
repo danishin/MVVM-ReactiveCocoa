@@ -9,21 +9,35 @@
 import ReactiveCocoa
 
 class ViewModel {
-  let text = MutableProperty<String>("")
-//  let searchImage: SignalProducer<UIImage, AppError>
-  var searchImage: CocoaAction!
-  let isIdle = MutableProperty<Bool>(true)
-  let username = MutableProperty<String>("")
-  let email = MutableProperty<String>("")
+  let title: ConstantProperty<String>
   
-  init(http: Http) {
-    searchImage = CocoaAction(Action(enabledIf: isIdle) {
-      http.exec(GETRandomUser(keyword: $0))
+  let text = MutableProperty("")
+  
+  let username = MutableProperty("")
+  let email = MutableProperty("")
+  
+  let isIdle = MutableProperty(true)
+  
+  var searchImage: CocoaAction!
+  
+  init(http: Http, titleName: String) {
+    title = ConstantProperty(titleName)
+    
+    let action: Action<String, GETRandomUser.ResponseData, AppError> = Action(enabledIf: isIdle) { [unowned self] in
+      self.isIdle.value = false
+      
+      return http.exec(GETRandomUser(keyword: $0))
         .on(next: {
           print($0)
-//          self.username.value = $0.users
-//          self.email.value = $0.email
+          let user = $0.users.first!
+          self.username.value = user.username
+          self.email.value = user.email
+          self.isIdle.value = true
         })
-      }, input: text.value)
+    }
+    
+    searchImage = CocoaAction(action, input: text.value)
+    
+//    text.producer
   }
 }
