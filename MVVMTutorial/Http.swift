@@ -27,14 +27,19 @@ private extension Request {
 
 protocol Http {
   func exec<HR: HttpRequest>(hr: HR) -> SignalProducer<HR.ResponseData, AppError>
+//  func downloadImage(url: String) -> SignalProducer<UIImage, AppError>
 }
 
 struct DefaultHttp: Http {
-  let baseURL: String
+  let config: Config
   
   func exec<HR: HttpRequest>(hr: HR) -> SignalProducer<HR.ResponseData, AppError> {
     return Alamofire.request(hr.urlRequest).toSignalProducer(HR)
   }
+  
+//  func downloadImage(url: String) -> SignalProducer<UIImage, AppError> {
+//    fatalError()
+//  }
 }
 
 

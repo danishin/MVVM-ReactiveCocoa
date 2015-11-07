@@ -7,37 +7,25 @@
 //
 
 import ReactiveCocoa
+import Rex
+import Swinject
 
-class ViewModel {
+final class ViewModel {
   let title: ConstantProperty<String>
   
-  let text = MutableProperty("")
+  var searchImage: Action<String, Void, AppError>!
   
-  let username = MutableProperty("")
-  let email = MutableProperty("")
-  
-  let isIdle = MutableProperty(true)
-  
-  var searchImage: CocoaAction!
+  let cell_models = MutableProperty<[UserCellModel]>([])
   
   init(http: Http, titleName: String) {
     title = ConstantProperty(titleName)
     
-    let action: Action<String, GETRandomUser.ResponseData, AppError> = Action(enabledIf: isIdle) { [unowned self] in
-      self.isIdle.value = false
-      
-      return http.exec(GETRandomUser(keyword: $0))
-        .on(next: {
-          print($0)
-          let user = $0.users.first!
-          self.username.value = user.username
-          self.email.value = user.email
-          self.isIdle.value = true
-        })
-    }
-    
-    searchImage = CocoaAction(action, input: text.value)
-    
-//    text.producer
+    searchImage = Action {
+      http.exec(GETRandomUser(keyword: $0))
+        .print()
+        .map { $0.users.map { UserCellModel.from(user: $0) } }
+        .on(next: { self.cell_models.value += $0 })
+        .map { _ in () }
+      }
   }
 }

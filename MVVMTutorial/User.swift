@@ -13,6 +13,7 @@ struct User {
   let email: String
   let username: String
   let password: String
+  let imageUrl: String
 }
 
 extension User: Decodable {
@@ -21,7 +22,8 @@ extension User: Decodable {
       name: j => "user" => "name" => "first",
       email: j => "user" => "email",
       username: j => "user" => "username",
-      password: j => "user" => "password"
+      password: j => "user" => "password",
+      imageUrl: j => "user" => "picture" => "medium"
     )
   }
 }

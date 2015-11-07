@@ -13,8 +13,11 @@ extension SwinjectStoryboard {
   class func setup() {
     let c = defaultContainer
     
-    c.register(Http.self) { r, a1 in DefaultHttp(baseURL: a1) }
-    c.register(ViewModel.self) { r in ViewModel(http: r.resolve(Http.self, arg1: "")!, titleName: "Default Title") }
+    c.register(Config.self) { _ in DefaultConfig() }.inObjectScope(.Container)
+    c.register(Http.self) { r, a1 in DefaultHttp(config: a1) }
+    c.register(ViewModel.self) { r in
+      ViewModel(http: r.resolve(Http.self, arg1: r.resolve(Config.self)!)!, titleName: "Default Title")
+    }
     
     c.registerForStoryboard(ViewController.self) { r, vc in
       vc.vm = r.resolve(ViewModel.self)
