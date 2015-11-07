@@ -9,7 +9,7 @@
 import Alamofire
 import Decodable
 
-protocol GET: HttpRequest {}
+protocol GET: APIRequest {}
 extension GET { var method: Alamofire.Method { return Alamofire.Method.GET } }
 
 struct GETRandomUser: GET {

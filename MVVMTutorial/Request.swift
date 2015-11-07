@@ -9,14 +9,14 @@
 import Alamofire
 import Decodable
 
-protocol HttpRequest {
+protocol APIRequest {
   typealias ResponseData: Decodable
   
   var method: Alamofire.Method { get }
   var info: (String, [String: AnyObject]) { get }
 }
 
-extension HttpRequest {
+extension APIRequest {
   var urlRequest: URLRequestConvertible {
     let (path, parameters) = self.info
     

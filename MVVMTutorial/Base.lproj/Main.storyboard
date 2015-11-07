@@ -25,7 +25,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nationality" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MhZ-vu-ZhB">
                                         <rect key="frame" x="259" y="16" width="82" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -38,7 +38,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yK6-8Y-VVH">
                                 <rect key="frame" x="221" y="62" width="11" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="Md5-0b-3d2">
@@ -55,9 +55,6 @@
                                 <rect key="frame" x="276" y="113" width="48" height="30"/>
                                 <state key="normal" title="Search"/>
                             </button>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="B6g-fn-Rdx">
-                                <rect key="frame" x="20" y="151" width="560" height="2"/>
-                            </progressView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="66" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Qip-1L-QzL">
                                 <rect key="frame" x="0.0" y="161" width="600" height="439"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -72,13 +69,13 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qgu-2M-8PU">
                                                     <rect key="frame" x="8" y="8" width="79" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xCJ-dW-0UM">
                                                     <rect key="frame" x="9" y="36" width="41" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ILs-72-Sas">
@@ -111,11 +108,13 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="n2b-hZ-8Xc"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="KY8-Ge-tef">
+                                <rect key="frame" x="290" y="143" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Md5-0b-3d2" firstAttribute="top" secondItem="b1Y-f6-TuW" secondAttribute="bottom" constant="21" id="36h-Tc-9EF"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="B6g-fn-Rdx" secondAttribute="leading" id="543-OA-KPs"/>
                             <constraint firstItem="Md5-0b-3d2" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="55" id="6N4-3r-Ryo"/>
                             <constraint firstItem="yK6-8Y-VVH" firstAttribute="centerX" secondItem="Md5-0b-3d2" secondAttribute="centerX" id="6vs-ia-KcS"/>
                             <constraint firstItem="r0T-Fi-cbX" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="57" id="C2k-OC-NSJ"/>
@@ -125,15 +124,14 @@
                             <constraint firstAttribute="trailingMargin" secondItem="b1Y-f6-TuW" secondAttribute="trailing" constant="-20" id="L33-vE-rrS"/>
                             <constraint firstItem="r0T-Fi-cbX" firstAttribute="top" secondItem="Md5-0b-3d2" secondAttribute="bottom" constant="-28" id="Maz-bh-GTX"/>
                             <constraint firstItem="Qip-1L-QzL" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="N3x-hZ-Rdw"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="B6g-fn-Rdx" secondAttribute="trailing" id="S3l-4i-nns"/>
+                            <constraint firstItem="KY8-Ge-tef" firstAttribute="centerX" secondItem="cnY-Uw-fuX" secondAttribute="centerX" id="OTl-qw-Rzp"/>
                             <constraint firstAttribute="leadingMargin" secondItem="Md5-0b-3d2" secondAttribute="leading" id="S9O-cm-8sC"/>
                             <constraint firstItem="b1Y-f6-TuW" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="SDy-aC-Vta"/>
-                            <constraint firstItem="B6g-fn-Rdx" firstAttribute="top" secondItem="cnY-Uw-fuX" secondAttribute="bottom" constant="8" id="UHV-zA-v58"/>
-                            <constraint firstItem="B6g-fn-Rdx" firstAttribute="centerX" secondItem="cnY-Uw-fuX" secondAttribute="centerX" id="b4J-kv-OeD"/>
+                            <constraint firstItem="Qip-1L-QzL" firstAttribute="top" secondItem="KY8-Ge-tef" secondAttribute="bottom" constant="-2" id="W7x-ko-w0f"/>
                             <constraint firstItem="r0T-Fi-cbX" firstAttribute="bottom" secondItem="Md5-0b-3d2" secondAttribute="bottom" id="cDg-ys-W7I"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Qip-1L-QzL" secondAttribute="bottom" id="dBl-qp-bTS"/>
-                            <constraint firstItem="Qip-1L-QzL" firstAttribute="top" secondItem="B6g-fn-Rdx" secondAttribute="bottom" constant="8" id="dzJ-nt-laN"/>
                             <constraint firstAttribute="trailingMargin" secondItem="r0T-Fi-cbX" secondAttribute="trailing" id="gkX-Tv-ZMd"/>
+                            <constraint firstItem="KY8-Ge-tef" firstAttribute="top" secondItem="cnY-Uw-fuX" secondAttribute="bottom" id="hBv-pn-Ibu"/>
                             <constraint firstItem="Md5-0b-3d2" firstAttribute="width" secondItem="r0T-Fi-cbX" secondAttribute="width" multiplier="3" id="l5g-DT-MzT"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Qip-1L-QzL" secondAttribute="trailing" constant="-20" id="lyU-hY-0rj"/>
                             <constraint firstItem="r0T-Fi-cbX" firstAttribute="leading" secondItem="Md5-0b-3d2" secondAttribute="trailing" constant="10" id="rHa-AM-MCa"/>
@@ -141,8 +139,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="KY8-Ge-tef" id="V2W-Bk-egZ"/>
                         <outlet property="genderSegmentControl" destination="r0T-Fi-cbX" id="Xdj-eb-5Ke"/>
-                        <outlet property="progressView" destination="B6g-fn-Rdx" id="bT9-Qv-TV4"/>
                         <outlet property="searchButton" destination="cnY-Uw-fuX" id="VAB-CN-r1C"/>
                         <outlet property="tableView" destination="Qip-1L-QzL" id="7S4-du-bN5"/>
                         <outlet property="titleLabel" destination="MhZ-vu-ZhB" id="in4-cF-le8"/>

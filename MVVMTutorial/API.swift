@@ -10,7 +10,7 @@ import Alamofire
 import ReactiveCocoa
 
 private extension Request {
-  func toSignalProducer<HR: HttpRequest>(Hr: HR.Type) -> SignalProducer<HR.ResponseData, AppError> {
+  func toSignalProducer<HR: APIRequest>(Hr: HR.Type) -> SignalProducer<HR.ResponseData, AppError> {
     return SignalProducer { (sink, _) in
       self.responseJSON { r in
         if let error = r.result.error { fatalError(error.description) }
@@ -25,21 +25,16 @@ private extension Request {
   }
 }
 
-protocol Http {
-  func exec<HR: HttpRequest>(hr: HR) -> SignalProducer<HR.ResponseData, AppError>
-//  func downloadImage(url: String) -> SignalProducer<UIImage, AppError>
+protocol API {
+  func exec<HR: APIRequest>(hr: HR) -> SignalProducer<HR.ResponseData, AppError>
 }
 
-struct DefaultHttp: Http {
-  let config: Config
+final class DefaultAPI: API {
+  init(config: Config) {}
   
-  func exec<HR: HttpRequest>(hr: HR) -> SignalProducer<HR.ResponseData, AppError> {
+  func exec<HR: APIRequest>(hr: HR) -> SignalProducer<HR.ResponseData, AppError> {
     return Alamofire.request(hr.urlRequest).toSignalProducer(HR)
   }
-  
-//  func downloadImage(url: String) -> SignalProducer<UIImage, AppError> {
-//    fatalError()
-//  }
 }
 
 

@@ -17,8 +17,7 @@ final class ViewController: UIViewController {
   @IBOutlet weak var userNumSlider: UISlider!
   @IBOutlet weak var genderSegmentControl: UISegmentedControl!
   @IBOutlet weak var searchButton: UIButton!
-  @IBOutlet weak var progressView: UIProgressView!
-  
+  @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   @IBOutlet weak var tableView: UITableView!
   
   var vm: ViewModel!
@@ -27,29 +26,30 @@ final class ViewController: UIViewController {
     super.viewDidLoad()
     
     let userNumSlided = userNumSlider.rex_controlEvents(.ValueChanged).map { Int(($0 as! UISlider).value) }
-    let genderSeleted = genderSegmentControl.rex_controlEvents(.ValueChanged).map { $0 as! UISegmentedControl }.map { s -> String? in
-      let i = s.selectedSegmentIndex
-      if i == -1 { return nil }
-      return s.titleForSegmentAtIndex(i)
+    let genderSeleted = genderSegmentControl.rex_controlEvents(.ValueChanged).map { $0 as! UISegmentedControl }.map { s in
+      Optional(s.selectedSegmentIndex)
+        .flatMap { $0 == -1 ? nil : $0 }
+        .flatMap { s.titleForSegmentAtIndex($0) }
     }
     let searchButtonExecuting = searchButton.rex_pressed.producer.flatMap(.Latest) { $0.rex_executingProducer }.skipRepeats()
+    // TODO: Use filterMap with new rex version
     let searchButtonTapped = searchButtonExecuting.filter { $0 }.map { _ in () }
-
+    
     /* TitleLabel */
     titleLabel.rex_text <~ vm.title
     
     /* UserNumLabel */
     userNumLabel.rex_text <~ SignalProducer(values: [
-      userNumSlided.map { $0 },
+      userNumSlided,
       searchButtonTapped.map { 0 }
     ]).flatten(.Merge).map { String($0) }
     
     /* UserNumSlider */
-    // TODO: Use filterMap with new rex version
     userNumSlider.rex_enabled <~ searchButtonExecuting.map { !$0 }
     userNumSlider.rex_stringProperty("value") <~ searchButtonTapped.map { "" }
     
     /* GenderSegmentControl */
+    // NB: Choose between DynamicProperty or rex_valueForProperty for UIControls whose value is not String
     DynamicProperty(object: genderSegmentControl, keyPath: "selectedSegmentIndex") <~ searchButtonTapped.map { -1 }
     
     /* SearchButton */
@@ -59,9 +59,12 @@ final class ViewController: UIViewController {
       combineLatest(userNumSlided.map { $0 != 0 }, genderSeleted.map { $0 != nil }).map { $0 && $1 },
       searchButtonTapped.map { false }
     ]).flatten(.Merge)
-
     
-    vm.cell_models.producer.on(next: { [weak self] _ in self?.tableView.reloadData() }).start()
+    /* ActivityIndicator */
+    searchButtonExecuting.startWithNext { [weak self] in $0 ? self?.activityIndicator.startAnimating() : self?.activityIndicator.stopAnimating() }
+
+    /* TableView */
+    vm.cell_models.producer.startWithNext { [weak self] _ in self?.tableView.reloadData() }
     
     // TODO: Separate LoginViewModel and UserViewModel.
   }

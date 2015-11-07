@@ -9,18 +9,34 @@
 import UIKit
 import Swinject
 
+private extension Resolvable {
+  func get<Service>(serviceType: Service.Type) -> Service {
+    guard let service = resolve(serviceType) else { fatalError("DI Error: Failed to resolve \(serviceType)") }
+    return service
+  }
+  
+  func get<Service, Arg1>(serviceType: Service.Type, arg1: Arg1) -> Service {
+    guard let service = resolve(serviceType, arg1: arg1) else { fatalError("DI Error: Failed to resolve \(serviceType) with \(arg1)") }
+    return service
+  }
+}
+
 extension SwinjectStoryboard {
   class func setup() {
     let c = defaultContainer
     
+    /* Configuration */
     c.register(Config.self) { _ in DefaultConfig() }.inObjectScope(.Container)
-    c.register(Http.self) { r, a1 in DefaultHttp(config: a1) }
-    c.register(ViewModel.self) { r in
-      ViewModel(http: r.resolve(Http.self, arg1: r.resolve(Config.self)!)!, titleName: "Default Title")
-    }
     
+    /* Model */
+    c.register(API.self) { r, a1 in DefaultAPI(config: a1) }.inObjectScope(.Container)
+    
+    /* ViewModel */
+    c.register(ViewModel.self) { r in ViewModel(api: r.get(API.self, arg1: r.get(Config.self))) }.inObjectScope(.Container)
+    
+    /* View */
     c.registerForStoryboard(ViewController.self) { r, vc in
-      vc.vm = r.resolve(ViewModel.self)
+      vc.vm = r.get(ViewModel.self)
     }
   }
 }
