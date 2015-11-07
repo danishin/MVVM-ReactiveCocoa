@@ -32,35 +32,32 @@ final class ViewController: UIViewController {
       if i == -1 { return nil }
       return s.titleForSegmentAtIndex(i)
     }
-    let searchButtonPressed = searchButton.rex_pressed.producer.flatMap(.Latest) { $0.rex_executingProducer }
-    
+    let searchButtonExecuting = searchButton.rex_pressed.producer.flatMap(.Latest) { $0.rex_executingProducer }.skipRepeats()
+    let searchButtonTapped = searchButtonExecuting.filter { $0 }.map { _ in () }
+
     /* TitleLabel */
     titleLabel.rex_text <~ vm.title
     
     /* UserNumLabel */
     userNumLabel.rex_text <~ SignalProducer(values: [
       userNumSlided.map { $0 },
-      searchButtonPressed.filter { $0 }.map { _ in 0 }
+      searchButtonTapped.map { 0 }
     ]).flatten(.Merge).map { String($0) }
     
     /* UserNumSlider */
     // TODO: Use filterMap with new rex version
-    userNumSlider.rex_enabled <~ searchButtonPressed.map { !$0 }
-    userNumSlider.rex_stringProperty("value") <~ searchButtonPressed.filter { $0 }.map { _ in "" }
-    
+    userNumSlider.rex_enabled <~ searchButtonExecuting.map { !$0 }
+    userNumSlider.rex_stringProperty("value") <~ searchButtonTapped.map { "" }
     
     /* GenderSegmentControl */
-//    DynamicProperty(object: genderSegmentControl, keyPath: "selected") <~ searchButtonPressed.map { _ in false }
-//    genderSegmentControl.rex_stringProperty("selectedSegmentIndex") <~ searchButtonPressed.map { _ in "-1" }
-//    let selectedSegmentIndex: MutableProperty<Bool> = genderSegmentControl.rex_valueProperty(&genderSegmentControl.selectedSegmentIndex, { [weak self] in self?.genderSegmentControl.selectedSegmentIndex ?? -1 }, { [weak self] (a: Int) in self?.genderSegmentControl = a })
-    DynamicProperty(object: genderSegmentControl, keyPath: "selectedSegmentIndex") <~ searchButtonPressed.filter { $0 }.map { _ in -1 }
+    DynamicProperty(object: genderSegmentControl, keyPath: "selectedSegmentIndex") <~ searchButtonTapped.map { -1 }
     
     /* SearchButton */
     searchButton.rex_pressed <~ combineLatest(userNumSlided, genderSeleted).map { [unowned self] in CocoaAction(self.vm.searchImage, input: ($0, $1!)) }
-    searchButton.rex_title <~ searchButtonPressed.map { $0 ? "Searching..." : "Search" }
+    searchButton.rex_title <~ searchButtonExecuting.map { $0 ? "Searching..." : "Search" }
     searchButton.rex_enabled <~ SignalProducer(values: [
       combineLatest(userNumSlided.map { $0 != 0 }, genderSeleted.map { $0 != nil }).map { $0 && $1 },
-      searchButtonPressed.map { _ in false }
+      searchButtonTapped.map { false }
     ]).flatten(.Merge)
 
     
