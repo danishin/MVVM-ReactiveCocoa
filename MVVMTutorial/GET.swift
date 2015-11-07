@@ -13,9 +13,9 @@ protocol GET: HttpRequest {}
 extension GET { var method: Alamofire.Method { return Alamofire.Method.GET } }
 
 struct GETRandomUser: GET {
-  let keyword: String
+  let userNum: Int, gender: String
   
-  var info: (String, [String: AnyObject]) { return ("https://randomuser.me/api", ["gender": keyword]) }
+  var info: (String, [String: AnyObject]) { return ("https://randomuser.me/api", ["results": userNum, "gender": gender]) }
   
   struct ResponseData: Decodable {
     let users: [User], nationality: String

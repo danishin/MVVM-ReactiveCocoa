@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -21,8 +22,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b1Y-f6-TuW">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="54"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MhZ-vu-ZhB">
-                                        <rect key="frame" x="279" y="16" width="42" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nationality" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MhZ-vu-ZhB">
+                                        <rect key="frame" x="259" y="16" width="82" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
@@ -34,15 +35,26 @@
                                     <constraint firstItem="MhZ-vu-ZhB" firstAttribute="centerX" secondItem="b1Y-f6-TuW" secondAttribute="centerX" id="cVn-CB-pAY"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yK6-8Y-VVH">
+                                <rect key="frame" x="221" y="62" width="11" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="Md5-0b-3d2">
+                                <rect key="frame" x="18" y="75" width="417" height="31"/>
+                            </slider>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="r0T-Fi-cbX">
+                                <rect key="frame" x="443" y="77" width="137" height="29"/>
+                                <segments>
+                                    <segment title="Female"/>
+                                    <segment title="Male"/>
+                                </segments>
+                            </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cnY-Uw-fuX">
                                 <rect key="frame" x="276" y="113" width="48" height="30"/>
                                 <state key="normal" title="Search"/>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i2F-ds-uYk">
-                                <rect key="frame" x="20" y="75" width="560" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="B6g-fn-Rdx">
                                 <rect key="frame" x="20" y="151" width="560" height="2"/>
                             </progressView>
@@ -102,31 +114,40 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="cnY-Uw-fuX" firstAttribute="top" secondItem="i2F-ds-uYk" secondAttribute="bottom" constant="8" id="4fA-j9-CRb"/>
+                            <constraint firstItem="Md5-0b-3d2" firstAttribute="top" secondItem="b1Y-f6-TuW" secondAttribute="bottom" constant="21" id="36h-Tc-9EF"/>
                             <constraint firstAttribute="leadingMargin" secondItem="B6g-fn-Rdx" secondAttribute="leading" id="543-OA-KPs"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="i2F-ds-uYk" secondAttribute="leading" id="7oo-4h-Yhb"/>
-                            <constraint firstItem="i2F-ds-uYk" firstAttribute="top" secondItem="b1Y-f6-TuW" secondAttribute="bottom" constant="21" id="7zl-ve-iM6"/>
+                            <constraint firstItem="Md5-0b-3d2" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="55" id="6N4-3r-Ryo"/>
+                            <constraint firstItem="yK6-8Y-VVH" firstAttribute="centerX" secondItem="Md5-0b-3d2" secondAttribute="centerX" id="6vs-ia-KcS"/>
+                            <constraint firstItem="r0T-Fi-cbX" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="57" id="C2k-OC-NSJ"/>
+                            <constraint firstItem="Md5-0b-3d2" firstAttribute="top" secondItem="yK6-8Y-VVH" secondAttribute="bottom" constant="-8" id="DrP-G1-3fN"/>
                             <constraint firstItem="cnY-Uw-fuX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Euo-uY-dvp"/>
-                            <constraint firstItem="i2F-ds-uYk" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="55" id="JVs-1P-mT8"/>
+                            <constraint firstItem="cnY-Uw-fuX" firstAttribute="top" secondItem="Md5-0b-3d2" secondAttribute="bottom" constant="8" id="GhB-JV-sUT"/>
                             <constraint firstAttribute="trailingMargin" secondItem="b1Y-f6-TuW" secondAttribute="trailing" constant="-20" id="L33-vE-rrS"/>
+                            <constraint firstItem="r0T-Fi-cbX" firstAttribute="top" secondItem="Md5-0b-3d2" secondAttribute="bottom" constant="-28" id="Maz-bh-GTX"/>
                             <constraint firstItem="Qip-1L-QzL" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="N3x-hZ-Rdw"/>
                             <constraint firstAttribute="trailingMargin" secondItem="B6g-fn-Rdx" secondAttribute="trailing" id="S3l-4i-nns"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="Md5-0b-3d2" secondAttribute="leading" id="S9O-cm-8sC"/>
                             <constraint firstItem="b1Y-f6-TuW" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="SDy-aC-Vta"/>
                             <constraint firstItem="B6g-fn-Rdx" firstAttribute="top" secondItem="cnY-Uw-fuX" secondAttribute="bottom" constant="8" id="UHV-zA-v58"/>
                             <constraint firstItem="B6g-fn-Rdx" firstAttribute="centerX" secondItem="cnY-Uw-fuX" secondAttribute="centerX" id="b4J-kv-OeD"/>
+                            <constraint firstItem="r0T-Fi-cbX" firstAttribute="bottom" secondItem="Md5-0b-3d2" secondAttribute="bottom" id="cDg-ys-W7I"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Qip-1L-QzL" secondAttribute="bottom" id="dBl-qp-bTS"/>
                             <constraint firstItem="Qip-1L-QzL" firstAttribute="top" secondItem="B6g-fn-Rdx" secondAttribute="bottom" constant="8" id="dzJ-nt-laN"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="r0T-Fi-cbX" secondAttribute="trailing" id="gkX-Tv-ZMd"/>
+                            <constraint firstItem="Md5-0b-3d2" firstAttribute="width" secondItem="r0T-Fi-cbX" secondAttribute="width" multiplier="3" id="l5g-DT-MzT"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Qip-1L-QzL" secondAttribute="trailing" constant="-20" id="lyU-hY-0rj"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="i2F-ds-uYk" secondAttribute="trailing" id="s1M-OJ-QOH"/>
+                            <constraint firstItem="r0T-Fi-cbX" firstAttribute="leading" secondItem="Md5-0b-3d2" secondAttribute="trailing" constant="10" id="rHa-AM-MCa"/>
                             <constraint firstItem="b1Y-f6-TuW" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="vcd-cd-Kvw"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="genderSegmentControl" destination="r0T-Fi-cbX" id="Xdj-eb-5Ke"/>
                         <outlet property="progressView" destination="B6g-fn-Rdx" id="bT9-Qv-TV4"/>
                         <outlet property="searchButton" destination="cnY-Uw-fuX" id="VAB-CN-r1C"/>
                         <outlet property="tableView" destination="Qip-1L-QzL" id="7S4-du-bN5"/>
-                        <outlet property="textField" destination="i2F-ds-uYk" id="sCc-O1-CMx"/>
                         <outlet property="titleLabel" destination="MhZ-vu-ZhB" id="in4-cF-le8"/>
+                        <outlet property="userNumLabel" destination="yK6-8Y-VVH" id="ncw-q0-5KZ"/>
+                        <outlet property="userNumSlider" destination="Md5-0b-3d2" id="OyW-8c-5vQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

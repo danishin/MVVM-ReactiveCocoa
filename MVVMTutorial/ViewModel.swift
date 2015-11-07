@@ -12,19 +12,17 @@ import Swinject
 
 final class ViewModel {
   let title: ConstantProperty<String>
-  
-  var searchImage: Action<String, Void, AppError>!
-  
+  var searchImage: Action<(Int, String), Void, AppError>!
   let cell_models = MutableProperty<[UserCellModel]>([])
   
   init(http: Http, titleName: String) {
     title = ConstantProperty(titleName)
     
     searchImage = Action {
-      http.exec(GETRandomUser(keyword: $0))
+      http.exec(GETRandomUser(userNum: $0, gender: $1))
         .print()
         .map { $0.users.map { UserCellModel.from(user: $0) } }
-        .on(next: { self.cell_models.value += $0 })
+        .on(next: { [weak self] in self?.cell_models.value += $0 })
         .map { _ in () }
       }
   }
