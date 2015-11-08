@@ -31,9 +31,11 @@ extension SwinjectStoryboard {
     
     /* Model */
     c.register(API.self) { r, a1 in DefaultAPI(config: a1) }.inObjectScope(.Container)
+    c.register(Notifier.self) { r in Notifier.create() }.inObjectScope(.Container)
+    c.register(DB.self) { r in RealmDB(notifier: r.get(Notifier.self)) }.inObjectScope(.Container)
     
     /* ViewModel */
-    c.register(ViewModel.self) { r in ViewModel(api: r.get(API.self, arg1: r.get(Config.self))) }.inObjectScope(.Container)
+    c.register(ViewModel.self) { r in ViewModel(api: r.get(API.self, arg1: r.get(Config.self)), db: r.get(DB.self)) }.inObjectScope(.Container)
     
     /* View */
     c.registerForStoryboard(ViewController.self) { r, vc in

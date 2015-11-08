@@ -9,7 +9,6 @@
 import UIKit
 import ReactiveCocoa
 import Rex
-import Result
 
 final class ViewController: UIViewController {
   @IBOutlet weak var titleLabel: UILabel!

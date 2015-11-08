@@ -11,4 +11,5 @@ import Foundation
 enum AppError: ErrorType {
   case NonError
   case Network(NSError)
+  case DB(NSError)
 }
