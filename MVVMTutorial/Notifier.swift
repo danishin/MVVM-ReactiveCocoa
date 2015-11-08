@@ -9,6 +9,7 @@
 import Realm
 import RealmSwift
 
+// FIXME: Use better name
 final class Notifier: Object {
   let users = List<User>()
 }
@@ -19,7 +20,7 @@ extension Notifier {
     if let notifier = realm.objects(Notifier).first { return notifier }
     
     let notifier = Notifier()
-    try! realm.write { realm.add(notifier) }
+    try! realm.write { realm.add(notifier, update: true) }
     
     return notifier
   }

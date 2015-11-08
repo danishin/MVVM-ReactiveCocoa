@@ -26,8 +26,6 @@ struct InsertUsers: Insert {
     let notifier = r.objects(Notifier).first!
     try r.write {
       notifier.users.appendContentsOf(users)
-      
-//      r.add(users, update: true)
     }
   }
 }
