@@ -32,8 +32,7 @@ final class ViewController: UIViewController {
         .flatMap { s.titleForSegmentAtIndex($0) }
     }
     let searchButtonExecuting = searchButton.rex_pressed.producer.flatMap(.Latest) { $0.rex_executingProducer }.skipRepeats()
-    // TODO: Use filterMap with new rex version
-    let searchButtonTapped = searchButtonExecuting.filter { $0 }.map { _ in () }
+    let searchButtonTapped = searchButtonExecuting.filterMap { $0 ? () : nil }
     
     /* TitleLabel */
     titleLabel.rex_text <~ vm.title

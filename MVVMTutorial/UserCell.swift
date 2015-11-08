@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class UserCell: UITableViewCell {
   @IBOutlet weak var usernameLabel: UILabel!
@@ -15,10 +16,9 @@ class UserCell: UITableViewCell {
   
   var model: UserCellModel! {
     didSet {
-      print(model)
       usernameLabel.text = model.username
       emailLabel.text = model.email
-//      userImageView
+      userImageView.af_setImageWithURL(NSURL(string: model.imageUrl)!)
     }
   }
 }

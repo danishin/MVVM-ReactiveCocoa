@@ -15,6 +15,7 @@ private extension Resolvable {
     return service
   }
   
+  // TODO: Use HList for args?
   func get<Service, Arg1>(serviceType: Service.Type, arg1: Arg1) -> Service {
     guard let service = resolve(serviceType, arg1: arg1) else { fatalError("DI Error: Failed to resolve \(serviceType) with \(arg1)") }
     return service

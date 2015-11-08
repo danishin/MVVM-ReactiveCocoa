@@ -11,15 +11,15 @@ import ReactiveCocoa
 
 private extension Request {
   func toSignalProducer<HR: APIRequest>(Hr: HR.Type) -> SignalProducer<HR.ResponseData, AppError> {
-    return SignalProducer { (sink, _) in
+    return SignalProducer { (observer, _) in
       self.responseJSON { r in
         if let error = r.result.error { fatalError(error.description) }
         guard let json = r.result.value else { fatalError() }
         
         let responseData = try! Hr.ResponseData.decode(json)
         
-        sendNext(sink, responseData)
-        sendCompleted(sink)
+        observer.sendNext(responseData)
+        observer.sendCompleted()
       }
     }
   }

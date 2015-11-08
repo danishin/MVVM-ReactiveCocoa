@@ -18,7 +18,6 @@ final class ViewModel {
   init(api: API) {
     searchImage = Action {
       api.exec(GETRandomUser(userNum: $0, gender: $1))
-        .print()
         .map { ($0.nationality, $0.users.map { UserCellModel.from(user: $0) }) }
         .on(next: { [weak self] in
           self?.title.value = $0
