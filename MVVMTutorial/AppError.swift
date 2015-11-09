@@ -10,6 +10,11 @@ import Foundation
 
 enum AppError: ErrorType {
   case NonError
-  case Network(NSError)
-  case DB(NSError)
+  case Network(ErrorType)
+  case DB(ErrorType)
 }
+
+struct CustomError: ErrorType {
+  let desc: String
+}
+

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6508E72C1BF0A6FD0014DBFE /* BrightFutures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6508E72B1BF0A6FD0014DBFE /* BrightFutures.framework */; };
+		6508E72D1BF0A6FD0014DBFE /* BrightFutures.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6508E72B1BF0A6FD0014DBFE /* BrightFutures.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6508E72F1BF0AE1B0014DBFE /* FutureExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6508E72E1BF0AE1B0014DBFE /* FutureExtension.swift */; settings = {ASSET_TAGS = (); }; };
 		654411991BEB147300473810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654411981BEB147300473810 /* AppDelegate.swift */; };
 		6544119B1BEB147300473810 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6544119A1BEB147300473810 /* ViewController.swift */; };
 		6544119E1BEB147300473810 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6544119C1BEB147300473810 /* Main.storyboard */; };
@@ -30,7 +33,6 @@
 		65B3987A1BEF7F3B00804073 /* DB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B398791BEF7F3B00804073 /* DB.swift */; settings = {ASSET_TAGS = (); }; };
 		65B3987C1BEF7FDC00804073 /* Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B3987B1BEF7FDC00804073 /* Fetch.swift */; settings = {ASSET_TAGS = (); }; };
 		65B398801BEF837000804073 /* Insert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B3987F1BEF837000804073 /* Insert.swift */; settings = {ASSET_TAGS = (); }; };
-		65B398841BEF8D5D00804073 /* Thread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B398831BEF8D5D00804073 /* Thread.swift */; settings = {ASSET_TAGS = (); }; };
 		65B398871BEF96BE00804073 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B398861BEF96BE00804073 /* Notifier.swift */; settings = {ASSET_TAGS = (); }; };
 		65FF546F1BEEDADF006C9B36 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65FF54681BEEDADF006C9B36 /* Alamofire.framework */; };
 		65FF54701BEEDADF006C9B36 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 65FF54681BEEDADF006C9B36 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -77,6 +79,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				65FF54741BEEDADF006C9B36 /* Decodable.framework in Embed Frameworks */,
+				6508E72D1BF0A6FD0014DBFE /* BrightFutures.framework in Embed Frameworks */,
 				65FF547C1BEEDADF006C9B36 /* Swinject.framework in Embed Frameworks */,
 				65B398771BEF2CFC00804073 /* RealmSwift.framework in Embed Frameworks */,
 				65FF54701BEEDADF006C9B36 /* Alamofire.framework in Embed Frameworks */,
@@ -92,6 +95,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6508E72B1BF0A6FD0014DBFE /* BrightFutures.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BrightFutures.framework; path = ../Carthage/Build/iOS/BrightFutures.framework; sourceTree = "<group>"; };
+		6508E72E1BF0AE1B0014DBFE /* FutureExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FutureExtension.swift; path = ../../../../../Daniel/code/swift/MVVMTutorial/MVVMTutorial/FutureExtension.swift; sourceTree = "<group>"; };
 		654411951BEB147300473810 /* MVVMTutorial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MVVMTutorial.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		654411981BEB147300473810 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6544119A1BEB147300473810 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -120,7 +125,6 @@
 		65B398791BEF7F3B00804073 /* DB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DB.swift; path = ../../../../../Daniel/code/swift/MVVMTutorial/MVVMTutorial/DB.swift; sourceTree = "<group>"; };
 		65B3987B1BEF7FDC00804073 /* Fetch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Fetch.swift; path = ../../../../../Daniel/code/swift/MVVMTutorial/MVVMTutorial/Fetch.swift; sourceTree = "<group>"; };
 		65B3987F1BEF837000804073 /* Insert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Insert.swift; path = ../../../../../Daniel/code/swift/MVVMTutorial/MVVMTutorial/Insert.swift; sourceTree = "<group>"; };
-		65B398831BEF8D5D00804073 /* Thread.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Thread.swift; path = ../../../../../Daniel/code/swift/MVVMTutorial/MVVMTutorial/Thread.swift; sourceTree = "<group>"; };
 		65B398861BEF96BE00804073 /* Notifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Notifier.swift; path = ../../../../../Daniel/code/swift/MVVMTutorial/MVVMTutorial/Notifier.swift; sourceTree = "<group>"; };
 		65FF54681BEEDADF006C9B36 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = ../Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		65FF54691BEEDADF006C9B36 /* AlamofireImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireImage.framework; path = ../Carthage/Build/iOS/AlamofireImage.framework; sourceTree = "<group>"; };
@@ -140,6 +144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				65FF54731BEEDADF006C9B36 /* Decodable.framework in Frameworks */,
+				6508E72C1BF0A6FD0014DBFE /* BrightFutures.framework in Frameworks */,
 				65FF547B1BEEDADF006C9B36 /* Swinject.framework in Frameworks */,
 				65B398761BEF2CFC00804073 /* RealmSwift.framework in Frameworks */,
 				65FF546F1BEEDADF006C9B36 /* Alamofire.framework in Frameworks */,
@@ -201,7 +206,7 @@
 				658563681BEDD8FC000FB3F9 /* UserCell.swift */,
 				6585636A1BEDD95D000FB3F9 /* UserCellModel.swift */,
 				65716A9B1BEB814E00BA6DBC /* AppError.swift */,
-				65B398831BEF8D5D00804073 /* Thread.swift */,
+				6508E72E1BF0AE1B0014DBFE /* FutureExtension.swift */,
 				65B398781BEF7F3000804073 /* DB */,
 				65716A8A1BEB68CE00BA6DBC /* API */,
 				6544119C1BEB147300473810 /* Main.storyboard */,
@@ -232,6 +237,7 @@
 		654411CA1BEB14E900473810 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6508E72B1BF0A6FD0014DBFE /* BrightFutures.framework */,
 				65FF54821BEF2243006C9B36 /* Realm.framework */,
 				65B398751BEF2CFC00804073 /* RealmSwift.framework */,
 				65FF54681BEEDADF006C9B36 /* Alamofire.framework */,
@@ -435,6 +441,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6508E72F1BF0AE1B0014DBFE /* FutureExtension.swift in Sources */,
 				65B398871BEF96BE00804073 /* Notifier.swift in Sources */,
 				65B3987C1BEF7FDC00804073 /* Fetch.swift in Sources */,
 				65716A8F1BEB691C00BA6DBC /* POST.swift in Sources */,
@@ -443,7 +450,6 @@
 				65716A8C1BEB690200BA6DBC /* GET.swift in Sources */,
 				65FF54801BEEE027006C9B36 /* README.md in Sources */,
 				6544119B1BEB147300473810 /* ViewController.swift in Sources */,
-				65B398841BEF8D5D00804073 /* Thread.swift in Sources */,
 				6585636B1BEDD95D000FB3F9 /* UserCellModel.swift in Sources */,
 				654411991BEB147300473810 /* AppDelegate.swift in Sources */,
 				65B3987A1BEF7F3B00804073 /* DB.swift in Sources */,

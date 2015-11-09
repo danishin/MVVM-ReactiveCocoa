@@ -20,7 +20,7 @@ extension Notifier {
     if let notifier = realm.objects(Notifier).first { return notifier }
     
     let notifier = Notifier()
-    try! realm.write { realm.add(notifier, update: true) }
+    try! realm.write { realm.add(notifier) }
     
     return notifier
   }

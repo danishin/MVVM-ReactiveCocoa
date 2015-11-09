@@ -8,7 +8,8 @@
 
 import Realm
 import RealmSwift
-import ReactiveCocoa
+import BrightFutures
+import Result
 
 protocol DBRequest {
   typealias Result
@@ -21,26 +22,15 @@ extension DBRequest {
 
 protocol DB {
   var notifier: Notifier { get }
-  func exec<DR: DBRequest>(dr: DR) -> SignalProducer<DR.Result, AppError>
+  func exec<DR: DBRequest>(dr: DR) -> Future<DR.Result, AppError>
 }
-
 
 class RealmDB: DB {
   let notifier: Notifier
   
   init(notifier: Notifier) { self.notifier = notifier }
   
-  func exec<DR: DBRequest>(dr: DR) -> SignalProducer<DR.Result, AppError> {
-    return SignalProducer { observer, _ in
-      dispatch_async(dr.queue) {
-        do {
-          let result = try dr.query()
-          observer.sendNext(result)
-          observer.sendCompleted()
-        } catch let error as NSError {
-          observer.sendFailed(AppError.DB(error))
-        }
-      }
-    }
+  func exec<DR: DBRequest>(dr: DR) -> Future<DR.Result, AppError> {
+    return future { try dr.query() }(AppError.DB)
   }
 }

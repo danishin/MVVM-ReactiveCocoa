@@ -6,15 +6,13 @@
 //  Copyright © 2015 Daniel Shin. All rights reserved.
 //
 
-import Realm
-import RealmSwift
 import ReactiveCocoa
 import Rex
-import Swinject
+import BrightFutures
 
 private extension CocoaAction {
   static var disabled: CocoaAction {
-    return CocoaAction(Action<Void, Void, NoError>.rex_disabled, input: ())
+    return CocoaAction(Action<Void, Void, ReactiveCocoa.NoError>.rex_disabled, input: ())
   }
 }
 
@@ -44,11 +42,9 @@ final class ViewModel {
     
     searchAction = Action(enabledIf: searchEnabled) {
       api.exec(GETRandomUser(userNum: $0, gender: $1))
-        .flatMap(.Concat) { r in db.exec(InsertUsers(users: r.users))
-          .on(next: { [weak self] in
-            self?.title.value = "Current Fetched Country: \(r.nationality)"
-            })}
+        .flatMap { r in db.exec(InsertUsers(users: r.users)).onSuccess { [weak self] in self?.title.value = "Current Fetched Country: \(r.nationality)" }}
         .map { _ in () }
+        .toSignalProducer()
     }
     
     search <~ combineLatest(userNum.producer, gender.producer).map { [unowned self] in CocoaAction(self.searchAction, input: ($0, $1)) }

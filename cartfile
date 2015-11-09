@@ -5,3 +5,4 @@ github "Alamofire/AlamofireImage" ~> 2.1.0
 github "realm/realm-cocoa" "master" # Fix this when #2793 is released
 github "Swinject/Swinject" ~> 0.4
 github "Anviking/Decodable" ~> 0.3.3
+github "Thomvis/BrightFutures" ~> 3.0.0
