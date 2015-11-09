@@ -21,8 +21,11 @@ final class ViewController: UIViewController {
   
   var vm: ViewModel!
   
+  // FIXME: Even all logics concerning simple `enabled`-like state needs to be delegated to viewmodel. View must be completely dumb.
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    
     
     let userNumSlided = userNumSlider.rex_controlEvents(.ValueChanged).map { Int(($0 as! UISlider).value) }
     let genderSeleted = genderSegmentControl.rex_controlEvents(.ValueChanged).map { $0 as! UISegmentedControl }.map { s in
@@ -30,8 +33,7 @@ final class ViewController: UIViewController {
         .flatMap { $0 == -1 ? nil : $0 }
         .flatMap { s.titleForSegmentAtIndex($0) }
     }
-    let searchButtonExecuting = searchButton.rex_pressed.producer.flatMap(.Latest) { $0.rex_executingProducer }.skipRepeats()
-    let searchButtonTapped = searchButtonExecuting.filterMap { $0 ? () : nil }
+    let searchStarted = vm.isSearching.producer.filterMap { $0 ? () : nil }
     
     /* TitleLabel */
     titleLabel.rex_text <~ vm.title
@@ -39,27 +41,27 @@ final class ViewController: UIViewController {
     /* UserNumLabel */
     userNumLabel.rex_text <~ SignalProducer(values: [
       userNumSlided,
-      searchButtonTapped.map { 0 }
+      searchStarted.map { 0 }
     ]).flatten(.Merge).map { String($0) }
     
     /* UserNumSlider */
-    userNumSlider.rex_enabled <~ searchButtonExecuting.map { !$0 }
-    userNumSlider.rex_stringProperty("value") <~ searchButtonTapped.map { "" }
+    userNumSlider.rex_enabled <~ vm.isSearching.producer.map { !$0 }
+    userNumSlider.rex_stringProperty("value") <~ searchStarted.map { "" }
     
     /* GenderSegmentControl */
     // NB: Choose between DynamicProperty or rex_valueForProperty for UIControls whose value is not String
-    DynamicProperty(object: genderSegmentControl, keyPath: "selectedSegmentIndex") <~ searchButtonTapped.map { -1 }
+    DynamicProperty(object: genderSegmentControl, keyPath: "selectedSegmentIndex") <~ searchStarted.map { -1 }
     
     /* SearchButton */
-    searchButton.rex_pressed <~ combineLatest(userNumSlided, genderSeleted).map { [unowned self] in CocoaAction(self.vm.searchImage, input: ($0, $1!)) }
-    searchButton.rex_title <~ searchButtonExecuting.map { $0 ? "Searching..." : "Search" }
+    searchButton.rex_pressed <~ combineLatest(userNumSlided, genderSeleted).map { [unowned self] in CocoaAction(self.vm.search, input: ($0, $1!)) }
+    searchButton.rex_title <~ vm.isSearching.producer.map { $0 ? "Searching..." : "Search" }
     searchButton.rex_enabled <~ SignalProducer(values: [
       combineLatest(userNumSlided.map { $0 != 0 }, genderSeleted.map { $0 != nil }).map { $0 && $1 },
-      searchButtonTapped.map { false }
+      vm.isSearching.producer.map { _ in false }
     ]).flatten(.Merge)
     
     /* ActivityIndicator */
-    searchButtonExecuting.startWithNext { [weak self] in $0 ? self?.activityIndicator.startAnimating() : self?.activityIndicator.stopAnimating() }
+    vm.isSearching.producer.startWithNext { [weak self] in $0 ? self?.activityIndicator.startAnimating() : self?.activityIndicator.stopAnimating() }
 
     /* TableView */
     vm.cell_models.producer.startWithNext { [weak self] _ in self?.tableView.reloadData() }
