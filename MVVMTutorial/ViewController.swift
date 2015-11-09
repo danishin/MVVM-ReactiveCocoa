@@ -25,40 +25,30 @@ final class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    
-    
-    let userNumSlided = userNumSlider.rex_controlEvents(.ValueChanged).map { Int(($0 as! UISlider).value) }
-    let genderSeleted = genderSegmentControl.rex_controlEvents(.ValueChanged).map { $0 as! UISegmentedControl }.map { s in
+    vm.userNum <~ userNumSlider.rex_controlEvents(.ValueChanged).map { Int(($0 as! UISlider).value) }
+    vm.gender <~ genderSegmentControl.rex_controlEvents(.ValueChanged).map { $0 as! UISegmentedControl }.filterMap { s in
       Optional(s.selectedSegmentIndex)
         .flatMap { $0 == -1 ? nil : $0 }
         .flatMap { s.titleForSegmentAtIndex($0) }
     }
-    let searchStarted = vm.isSearching.producer.filterMap { $0 ? () : nil }
     
     /* TitleLabel */
     titleLabel.rex_text <~ vm.title
     
     /* UserNumLabel */
-    userNumLabel.rex_text <~ SignalProducer(values: [
-      userNumSlided,
-      searchStarted.map { 0 }
-    ]).flatten(.Merge).map { String($0) }
+    userNumLabel.rex_text <~ vm.userNum.producer.map { String($0) }
     
     /* UserNumSlider */
     userNumSlider.rex_enabled <~ vm.isSearching.producer.map { !$0 }
-    userNumSlider.rex_stringProperty("value") <~ searchStarted.map { "" }
+    userNumSlider.rex_stringProperty("value") <~ vm.userNum.producer.filterMap { $0 == 0 ? "" : nil }
     
     /* GenderSegmentControl */
     // NB: Choose between DynamicProperty or rex_valueForProperty for UIControls whose value is not String
-    DynamicProperty(object: genderSegmentControl, keyPath: "selectedSegmentIndex") <~ searchStarted.map { -1 }
+    DynamicProperty(object: genderSegmentControl, keyPath: "selectedSegmentIndex") <~ vm.gender.producer.filterMap { $0 == "" ? -1 : nil }
     
     /* SearchButton */
-    searchButton.rex_pressed <~ combineLatest(userNumSlided, genderSeleted).map { [unowned self] in CocoaAction(self.vm.search, input: ($0, $1!)) }
+    searchButton.rex_pressed <~ vm.search
     searchButton.rex_title <~ vm.isSearching.producer.map { $0 ? "Searching..." : "Search" }
-    searchButton.rex_enabled <~ SignalProducer(values: [
-      combineLatest(userNumSlided.map { $0 != 0 }, genderSeleted.map { $0 != nil }).map { $0 && $1 },
-      vm.isSearching.producer.map { _ in false }
-    ]).flatten(.Merge)
     
     /* ActivityIndicator */
     vm.isSearching.producer.startWithNext { [weak self] in $0 ? self?.activityIndicator.startAnimating() : self?.activityIndicator.stopAnimating() }
