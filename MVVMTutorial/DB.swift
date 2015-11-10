@@ -11,13 +11,12 @@ import RealmSwift
 import BrightFutures
 import Result
 
+typealias RealmConfig = Realm.Configuration
+
 protocol DBRequest {
   typealias Result
   var queue: dispatch_queue_t { get }
-  func query() throws -> Result
-}
-extension DBRequest {
-  func realm() throws -> Realm { return try Realm() }
+  func query(rc: RealmConfig) throws -> Result
 }
 
 protocol DB {
@@ -26,11 +25,12 @@ protocol DB {
 }
 
 class RealmDB: DB {
-  let notifier: Notifier
+  let notifier: Notifier = Notifier.sharedInstance()
+  private let rc: RealmConfig
   
-  init(notifier: Notifier) { self.notifier = notifier }
+  init(config: Config, localUser: LocalUser) { self.rc = config.RealmConfig(localUser.user_id) }
   
   func exec<DR: DBRequest>(dr: DR) -> Future<DR.Result, AppError> {
-    return future { try dr.query() }(AppError.DB)
+    return future { try dr.query(self.rc) }(AppError.DB)
   }
 }

@@ -24,12 +24,14 @@ final class ViewModel {
   let cell_models = MutableProperty<[UserCellModel]>([])
   
   let search = MutableProperty(CocoaAction.disabled)
-  
   private var searchAction: Action<(Int, String), Void, AppError>!
   
   private let searchEnabled = MutableProperty(false)
   
-  init(api: API, db: DB) {
+  init(api: API, db: DB, localUser: LocalUser) {
+    // NB: Let's pretend this user is authenticated and has user_id of 1
+    localUser.authenticated(1)
+    
     let searchStarted = isSearching.producer.filterMap { $0 ? () : nil }
     
     userNum <~ searchStarted.map { 0 }

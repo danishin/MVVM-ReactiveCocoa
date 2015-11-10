@@ -15,7 +15,7 @@ final class Notifier: Object {
 }
 
 extension Notifier {
-  static func create() -> Notifier {
+  static func sharedInstance() -> Notifier {
     let realm = try! Realm()
     if let notifier = realm.objects(Notifier).first { return notifier }
     

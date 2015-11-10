@@ -6,31 +6,67 @@
 //  Copyright © 2015 Daniel Shin. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Quick
+import Nimble
+import ReactiveCocoa
+import BrightFutures
+import Swinject
+import Realm
+import RealmSwift
+
 @testable import MVVMTutorial
 
-class MVVMTutorialTests: XCTestCase {
-    
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+extension MutableProperty {
+  func success(name: String?, onNext: Value -> Void) -> Disposable {
+    if let name = name {
+      return producer.debug(name).startWithNext(onNext)
+    } else {
+      return producer.startWithNext(onNext)
     }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
+  }
+  
+  func success(onNext: Value -> Void) -> Disposable {
+    return success(nil, onNext: onNext)
+  }
+}
+
+extension MutableProperty where Value: CocoaAction {
+  func run() -> Disposable {
+    return success { $0.execute(nil) }
+  }
+}
+
+private class MockConfig: Config {
+  override func RealmConfig(user_id: Int) -> Realm.Configuration {
+    fatalError()
+  }
+}
+
+class MVVMTutorialTests: QuickSpec {
+  override func spec() {
+    describe("ViewModel") {
+      let c = SwinjectStoryboard.defaultContainer
+      c.register(Config.self) { _ in MockConfig() }
+      
+      var vm: ViewModel!
+      
+      beforeEach {
+        vm = c.get(ViewModel.self)
+      }
+      
+      it("works") {
+        var isSearching = false
+        
+        vm.userNum.value = 1
+        vm.gender.value = "female"
+        
+        vm.search.success("search") { $0.execute(nil) }
+        vm.isSearching.success("isSearching") { isSearching = $0 }
+        
+        expect(isSearching).toEventually(equal(true))
+        expect(isSearching).toEventually(equal(false), timeout: 5)
+      }
     }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
+  }
 }

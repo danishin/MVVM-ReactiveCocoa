@@ -1,8 +1,23 @@
+## Functional Programming
 github "ReactiveCocoa/ReactiveCocoa" "v4.0.0-alpha.3"
 github "neilpa/Rex" "v0.9.0-alpha.3"
+github "Thomvis/BrightFutures" ~> 3.0.0
+
+## Network
 github "Alamofire/Alamofire" ~> 3.1.2
 github "Alamofire/AlamofireImage" ~> 2.1.0
-github "realm/realm-cocoa" "master" # Fix this when #2793 is released
+
+## DB
+# Fix this when #2793 is released
+github "realm/realm-cocoa" "master"
+
+## Dependency Injection
 github "Swinject/Swinject" ~> 0.4
+
+## ETC
 github "Anviking/Decodable" ~> 0.3.3
-github "Thomvis/BrightFutures" ~> 3.0.0
+github "radex/SwiftyUserDefaults" ~> 2.0.0
+
+## Test
+github "Quick/Quick" ~> 0.8.0
+github "Quick/Nimble" ~> 3.0.0

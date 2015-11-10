@@ -9,7 +9,7 @@
 import UIKit
 import Swinject
 
-private extension Resolvable {
+extension Resolvable {
   func get<Service>(serviceType: Service.Type) -> Service {
     guard let service = resolve(serviceType) else { fatalError("DI Error: Failed to resolve \(serviceType)") }
     return service
@@ -27,15 +27,15 @@ extension SwinjectStoryboard {
     let c = defaultContainer
     
     /* Configuration */
-    c.register(Config.self) { _ in DefaultConfig() }.inObjectScope(.Container)
+    c.register(Config.self) { _ in Config() }.inObjectScope(.Container)
     
     /* Model */
-    c.register(API.self) { r, a1 in DefaultAPI(config: a1) }.inObjectScope(.Container)
-    c.register(Notifier.self) { r in Notifier.create() }.inObjectScope(.Container)
-    c.register(DB.self) { r in RealmDB(notifier: r.get(Notifier.self)) }.inObjectScope(.Container)
+    c.register(LocalUser.self) { _ in LocalUser() }.inObjectScope(.Container)
+    c.register(API.self) { r in DefaultAPI(config: r.get(Config.self)) }.inObjectScope(.Container)
+    c.register(DB.self) { r in RealmDB(config: r.get(Config.self), localUser: r.get(LocalUser.self)) }.inObjectScope(.Container)
     
     /* ViewModel */
-    c.register(ViewModel.self) { r in ViewModel(api: r.get(API.self, arg1: r.get(Config.self)), db: r.get(DB.self)) }.inObjectScope(.Container)
+    c.register(ViewModel.self) { r in ViewModel(api: r.get(API.self), db: r.get(DB.self), localUser: r.get(LocalUser.self)) }.inObjectScope(.Container)
     
     /* View */
     c.registerForStoryboard(ViewController.self) { r, vc in

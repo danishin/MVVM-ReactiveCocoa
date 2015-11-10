@@ -7,9 +7,22 @@
 //
 
 import Foundation
+import Realm
+import RealmSwift
 
-protocol Config {}
-
-final class DefaultConfig: Config {
+class Config {
   let BaseURL = ""
+  
+  func RealmConfig(user_id: Int) -> Realm.Configuration {
+    var config = Realm.Configuration()
+    
+    config.path = NSURL.fileURLWithPath(config.path!)
+      .URLByDeletingLastPathComponent?
+      .URLByAppendingPathComponent(String(user_id))
+      .URLByAppendingPathExtension("realm")
+      .path
+    
+    return config
+  }
+  
 }

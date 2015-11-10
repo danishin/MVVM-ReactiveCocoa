@@ -57,6 +57,11 @@ final class ViewController: UIViewController {
     vm.cell_models.producer.startWithNext { [weak self] _ in self?.tableView.reloadData() }
     
     // TODO: Separate LoginViewModel and UserViewModel.
+    
+    // TODO: You can declare relationship between child viewcontroller and parent viewcontroller by binding inside viewmodel from one of its property to newly created child viewmodel's property
+    // TODO: This kind of declaring relationship between viewcontrollers by using viewmodel can fully replace ugly delegate patterns.
+    
+    // TODO: With regards to simple relationship like presentingVC and alertVC and the like can simply share the same viewmodel to further emphasize their tight relationship.
   }
 }
 

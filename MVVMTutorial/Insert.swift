@@ -7,25 +7,38 @@
 //
 
 import Foundation
+import Realm
+import RealmSwift
+
+extension Realm {
+  var notifier: Notifier {
+    if let notifier = objects(Notifier).first {
+      return notifier
+    } else {
+      let notifier = Notifier()
+      try! write { add(notifier) }
+      return notifier
+    }
+  }
+}
 
 protocol Insert: DBRequest {}
 extension Insert { var queue: dispatch_queue_t { return dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0) } }
 
 struct InsertUser: Insert {
   let user: User
-  func query() throws -> Void {
-    let r = try realm()
+  
+  func query(rc: RealmConfig) throws -> Void {
+    let r = try Realm(configuration: rc)
     try r.write { r.add(user, update: true) }
   }
 }
 
 struct InsertUsers: Insert {
   let users: [User]
-  func query() throws -> Void {
-    let r = try realm()
-    let notifier = r.objects(Notifier).first!
-    try r.write {
-      notifier.users.appendContentsOf(users)
-    }
+  
+  func query(rc: RealmConfig) throws -> Void {
+    let r = try Realm(configuration: rc)
+    try r.write { r.notifier.users.appendContentsOf(users) }
   }
 }
