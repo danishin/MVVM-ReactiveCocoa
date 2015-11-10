@@ -10,9 +10,18 @@ import Foundation
 import Realm
 import RealmSwift
 
-class Config {
-  let BaseURL = ""
-  
+protocol Config {
+  /* Overridable */
+  var BaseURL: String { get }
+  func RealmConfig(user_id: Int) -> Realm.Configuration
+}
+
+extension Config {
+  /* Non-Overridable */
+}
+
+class DefaultConfig: Config {
+  let BaseURL = "Run"
   func RealmConfig(user_id: Int) -> Realm.Configuration {
     var config = Realm.Configuration()
     
@@ -24,5 +33,4 @@ class Config {
     
     return config
   }
-  
 }

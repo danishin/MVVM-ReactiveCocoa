@@ -27,7 +27,7 @@ extension SwinjectStoryboard {
     let c = defaultContainer
     
     /* Configuration */
-    c.register(Config.self) { _ in Config() }.inObjectScope(.Container)
+    c.register(Config.self) { _ in DefaultConfig() }.inObjectScope(.Container)
     
     /* Model */
     c.register(LocalUser.self) { _ in LocalUser() }.inObjectScope(.Container)

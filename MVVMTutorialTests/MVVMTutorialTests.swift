@@ -38,7 +38,8 @@ extension MutableProperty where Value: CocoaAction {
 }
 
 private class MockConfig: Config {
-  override func RealmConfig(user_id: Int) -> Realm.Configuration {
+  let BaseURL = "HELLO"
+  func RealmConfig(user_id: Int) -> Realm.Configuration {
     fatalError()
   }
 }
@@ -61,7 +62,7 @@ class MVVMTutorialTests: QuickSpec {
         vm.userNum.value = 1
         vm.gender.value = "female"
         
-        vm.search.success("search") { $0.execute(nil) }
+        vm.search.run()
         vm.isSearching.success("isSearching") { isSearching = $0 }
         
         expect(isSearching).toEventually(equal(true))
