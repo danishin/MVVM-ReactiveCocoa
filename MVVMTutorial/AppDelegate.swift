@@ -31,11 +31,14 @@ extension SwinjectStoryboard {
     
     /* Model */
     c.register(LocalUser.self) { _ in LocalUser() }.inObjectScope(.Container)
+    // NB: Let's pretend this user is authenticated and has user_id of 1
+    c.get(LocalUser.self).authenticated(1)
+    
     c.register(API.self) { r in DefaultAPI(config: r.get(Config.self)) }.inObjectScope(.Container)
     c.register(DB.self) { r in RealmDB(config: r.get(Config.self), localUser: r.get(LocalUser.self)) }.inObjectScope(.Container)
     
     /* ViewModel */
-    c.register(ViewModel.self) { r in ViewModel(api: r.get(API.self), db: r.get(DB.self), localUser: r.get(LocalUser.self)) }.inObjectScope(.Container)
+    c.register(ViewModel.self) { r in ViewModel(api: r.get(API.self), db: r.get(DB.self)) }.inObjectScope(.Container)
     
     /* View */
     c.registerForStoryboard(ViewController.self) { r, vc in

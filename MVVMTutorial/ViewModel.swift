@@ -9,8 +9,6 @@
 import ReactiveCocoa
 import Rex
 import BrightFutures
-import Realm
-import RealmSwift
 
 private extension CocoaAction {
   static var disabled: CocoaAction {
@@ -26,7 +24,7 @@ final class ViewModel {
   
   // Outputs
   let isSearching = MutableProperty(false)
-  let users = MutableProperty<List<User>>(List())
+  let userCellModels = MutableProperty<[UserCellModel]>([])
   
   // Actions
   let search = MutableProperty(CocoaAction.disabled)
@@ -36,7 +34,6 @@ final class ViewModel {
   private lazy var searchAction: Action<(Int, String), Void, AppError> = { [unowned self] in
     return Action(enabledIf: self.searchEnabled) {
       self.api.exec(GETRandomUser(userNum: $0, gender: $1))
-        .debug("action")
         .flatMap { r in self.db.exec(InsertUsers(users: r.users)).onSuccess { [weak self] in self?.title.value = "Current Fetched Country: \(r.nationality)" }}
         .map { _ in () }
         .toSignalProducer()
@@ -47,12 +44,12 @@ final class ViewModel {
   private let api: API
   private let db: DB
   
-  init(api: API, db: DB, localUser: LocalUser) {
+  private let supervisor: Supervisor
+  
+  init(api: API, db: DB) {
     self.api = api
     self.db = db
-    
-    // NB: Let's pretend this user is authenticated and has user_id of 1
-    localUser.authenticated(1)
+    self.supervisor = db.supervisor()
     
     let searchStarted = isSearching.producer.filterMap { $0 ? () : nil }
     userNum <~ searchStarted.map { 0 }
@@ -61,7 +58,7 @@ final class ViewModel {
     searchEnabled <~ combineLatest(userNum.producer.map { $0 != 0 }, gender.producer.map { $0 != "" }).map { $0 && $1 }
     
     // FIXME: How to map over RLMArray?
-    users <~ DynamicProperty(object: db.notifier, keyPath: "users").producer.observeOn(QueueScheduler.mainQueueScheduler).debug("users").map { _ in db.notifier.users }
+    userCellModels <~ DynamicProperty(object: supervisor, keyPath: "users").producer.observeOn(QueueScheduler.mainQueueScheduler).map { [unowned self] _ in self.supervisor.users.map(UserCellModel.from) }
     
     search <~ combineLatest(userNum.producer, gender.producer).map { [unowned self] in CocoaAction(self.searchAction, input: ($0, $1)) }
     
@@ -69,8 +66,8 @@ final class ViewModel {
   }
   
   // MARK: Data Source
-  func numberOfUsersInSection(section: Int) -> Int {
-    return users.value.count
+  func numberOfRowsInSection(section: Int) -> Int {
+    return userCellModels.value.count
   }
   
 //  func userCellModelForRowAtIndexPath()

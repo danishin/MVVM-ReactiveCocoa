@@ -14,11 +14,11 @@ class UserCell: UITableViewCell {
   @IBOutlet weak var emailLabel: UILabel!
   @IBOutlet weak var userImageView: UIImageView!
   
-  var user: User! {
+  var model: UserCellModel! {
     didSet {
-      usernameLabel.text = user.username
-      emailLabel.text = user.email
-      userImageView.af_setImageWithURL(NSURL(string: user.imageUrl)!)
+      usernameLabel.text = model.username
+      emailLabel.text = model.email
+      userImageView.af_setImageWithURL(NSURL(string: model.imageUrl)!)
     }
   }
 }

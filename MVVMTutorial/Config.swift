@@ -24,11 +24,11 @@ class DefaultConfig: Config {
   let BaseURL = "Run"
   func RealmConfig(user_id: Int) -> Realm.Configuration {
     var config = Realm.Configuration()
+//    return Realm.Configuration.defaultConfiguration
     
     config.path = NSURL.fileURLWithPath(config.path!)
       .URLByDeletingLastPathComponent?
-      .URLByAppendingPathComponent(String(user_id))
-      .URLByAppendingPathExtension("realm")
+      .URLByAppendingPathComponent("\(user_id).realm")
       .path
     
     return config

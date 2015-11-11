@@ -11,15 +11,7 @@ import Realm
 import RealmSwift
 
 extension Realm {
-  var notifier: Notifier {
-    if let notifier = objects(Notifier).first {
-      return notifier
-    } else {
-      let notifier = Notifier()
-      try! write { add(notifier) }
-      return notifier
-    }
-  }
+  var supervisor: Supervisor { return Supervisor.sharedInstance(configuration) }
 }
 
 protocol Insert: DBRequest {}
@@ -39,6 +31,8 @@ struct InsertUsers: Insert {
   
   func query(rc: RealmConfig) throws -> Void {
     let r = try Realm(configuration: rc)
-    try r.write { r.notifier.users.appendContentsOf(users) }
+    let s = r.supervisor
+    
+    try r.write { s.users.appendContentsOf(users) }
   }
 }

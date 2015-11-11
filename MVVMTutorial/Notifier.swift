@@ -10,18 +10,18 @@ import Realm
 import RealmSwift
 
 // FIXME: Use better name
-final class Notifier: Object {
+final class Supervisor: Object {
   let users = List<User>()
 }
 
-extension Notifier {
-  static func sharedInstance() -> Notifier {
-    let realm = try! Realm()
-    if let notifier = realm.objects(Notifier).first { return notifier }
+extension Supervisor {
+  static func sharedInstance(rc: RealmConfig) -> Supervisor {
+    let realm = try! Realm(configuration: rc)
+    if let notifier = realm.objects(Supervisor).first { return notifier }
     
-    let notifier = Notifier()
-    try! realm.write { realm.add(notifier) }
+    let supervisor = Supervisor()
+    try! realm.write { realm.add(supervisor) }
     
-    return notifier
+    return supervisor
   }
 }

@@ -54,7 +54,7 @@ final class ViewController: UIViewController {
     vm.isSearching.producer.startWithNext { [weak self] in $0 ? self?.activityIndicator.startAnimating() : self?.activityIndicator.stopAnimating() }
 
     /* TableView */
-    vm.users.producer.startWithNext { [weak self] _ in self?.tableView.reloadData() }
+    vm.userCellModels.producer.startWithNext { [weak self] _ in self?.tableView.reloadData() }
     
     // TODO: Separate LoginViewModel and UserViewModel.
     
@@ -68,12 +68,12 @@ final class ViewController: UIViewController {
 // MARK: UITableViewDataSource
 extension ViewController: UITableViewDataSource {
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return vm.numberOfUsersInSection(section)
+    return vm.numberOfRowsInSection(section)
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("UserCell", forIndexPath: indexPath) as! UserCell
-    cell.user = vm.users.value[indexPath.row]
+    cell.model = vm.userCellModels.value[indexPath.row]
     return cell
   }
 }

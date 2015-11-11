@@ -20,12 +20,12 @@ protocol DBRequest {
 }
 
 protocol DB {
-  var notifier: Notifier { get }
+  func supervisor() ->  Supervisor
   func exec<DR: DBRequest>(dr: DR) -> Future<DR.Result, AppError>
 }
 
 class RealmDB: DB {
-  let notifier: Notifier = Notifier.sharedInstance()
+  func supervisor() -> Supervisor { return Supervisor.sharedInstance(rc) }
   private let rc: RealmConfig
   
   init(config: Config, localUser: LocalUser) { self.rc = config.RealmConfig(localUser.user_id) }
