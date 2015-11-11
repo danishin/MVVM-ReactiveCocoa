@@ -8,7 +8,7 @@
 
 import ReactiveCocoa
 
-class LoginViewModel {
+class LoginViewModel: ViewModel {
   
   // Inputs
   let username = MutableProperty("")
@@ -21,27 +21,19 @@ class LoginViewModel {
   // Actions
   let login = MutableProperty(CocoaAction.disabled)
   
-  // Action Helpers
-  private lazy var loginAction: Action<String, Void, NoError> = { [unowned self] in
-    return Action(enabledIf: self.loginEnabled) {
-      self.localUser.authenticated(user_id: 1, username: $0)
+  init(localUser: LocalUser) {
+    let loginAction: Action<String, Void, NoError> = Action(enabledIf: self.loginEnabled) {
+      localUser.authenticated(user_id: 1, username: $0)
       self.loggedIn.value = true
       
       return SignalProducer.empty
     }
-  }()
-  
-  // Dependencies
-  private let localUser: LocalUser
-  
-  init(localUser: LocalUser) {
-    self.localUser = localUser
     
     loginEnabled <~ combineLatest(
       username.producer.map { $0.characters.count > 5 },
       password.producer.map { $0.characters.count > 5 }
     ).map { $0 && $1 }
     
-    login <~ combineLatest(username.producer, password.producer).map { [unowned self] u, p in CocoaAction(self.loginAction, input: u) }
+    login <~ combineLatest(username.producer, password.producer).map { u, p in CocoaAction(loginAction, input: u) }
   }
 }

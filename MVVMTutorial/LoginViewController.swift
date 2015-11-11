@@ -17,9 +17,7 @@ class LoginViewController: BaseViewController {
   
   var vm: LoginViewModel!
   
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
+  override func bind() {
     vm.username <~ usernameTextField.textSignalProducer.debug()
     vm.password <~ passwordTextField.textSignalProducer.debug()
     

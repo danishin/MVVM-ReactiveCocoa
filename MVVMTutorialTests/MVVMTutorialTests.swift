@@ -12,7 +12,6 @@ import Nimble
 import ReactiveCocoa
 import BrightFutures
 import Swinject
-import Realm
 import RealmSwift
 
 @testable import MVVMTutorial

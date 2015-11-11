@@ -6,7 +6,6 @@
 //  Copyright © 2015 Daniel Shin. All rights reserved.
 //
 
-import Realm
 import RealmSwift
 import Decodable
 
@@ -16,6 +15,8 @@ final class User: Object {
   dynamic var username: String = ""
   dynamic var password: String = ""
   dynamic var imageUrl: String = ""
+  
+  dynamic var comment: String = ""
   
   override static func primaryKey() -> String? { return "email" }
 }
@@ -29,6 +30,8 @@ extension User: Decodable {
     u.username =  try j => "user" => "username"
     u.password =  try j => "user" => "password"
     u.imageUrl =  try j => "user" => "picture" => "medium"
+    
+    u.comment = ""
     
     return u
   }

@@ -6,7 +6,6 @@
 //  Copyright © 2015 Daniel Shin. All rights reserved.
 //
 
-import Realm
 import RealmSwift
 import ReactiveCocoa
 

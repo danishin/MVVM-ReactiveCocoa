@@ -6,7 +6,7 @@
 //  Copyright © 2015 Daniel Shin. All rights reserved.
 //
 
-import Realm
+import Foundation
 import RealmSwift
 
 protocol Fetch: DBRequest {}

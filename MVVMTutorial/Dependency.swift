@@ -22,14 +22,14 @@ extension SwinjectStoryboard {
     
     /* ViewModel */
     c.register(LoginViewModel.self) { r in LoginViewModel(localUser: r.get(LocalUser.self)) }
-    c.register(SearchUsersViewModel.self) { r in SearchUsersViewModel(api: r.get(API.self), db: r.get(DB.self)) }.inObjectScope(.Container)
+    c.register(UsersViewModel.self) { r in UsersViewModel(api: r.get(API.self), db: r.get(DB.self)) }.inObjectScope(.Container)
     
     /* View */
     c.registerForStoryboard(LoginViewController.self) { r, vc in
       vc.vm = r.get(LoginViewModel.self)
     }
-    c.registerForStoryboard(SearchUsersViewController.self) { r, vc in
-      vc.vm = r.get(SearchUsersViewModel.self)
+    c.registerForStoryboard(UsersViewController.self) { r, vc in
+      vc.vm = r.get(UsersViewModel.self)
     }
   }
 }

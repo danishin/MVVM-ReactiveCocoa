@@ -6,10 +6,14 @@
 //  Copyright © 2015 Daniel Shin. All rights reserved.
 //
 
-import Realm
+import Foundation
 import RealmSwift
 import BrightFutures
 import Result
+
+extension Realm {
+  var supervisor: Supervisor { return Supervisor.sharedInstance(configuration) }
+}
 
 typealias RealmConfig = Realm.Configuration
 

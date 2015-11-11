@@ -10,8 +10,8 @@ import UIKit
 import ReactiveCocoa
 import Rex
 
-final class SearchUsersViewController: BaseViewController {
-  @IBOutlet weak var titleLabel: UILabel!
+final class UsersViewController: BaseViewController {
+  @IBOutlet weak var titleNavigationItem: UINavigationItem!
   @IBOutlet weak var userNumLabel: UILabel!
   @IBOutlet weak var userNumSlider: UISlider!
   @IBOutlet weak var genderSegmentControl: UISegmentedControl!
@@ -19,19 +19,16 @@ final class SearchUsersViewController: BaseViewController {
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   @IBOutlet weak var tableView: UITableView!
   
-  var vm: SearchUsersViewModel!
+  var vm: UsersViewModel!
   
-  // FIXME: Even all logics concerning simple `enabled`-like state needs to be delegated to viewmodel. View must be completely dumb.
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
+  override func bind() {
     vm.userNum <~ userNumSlider.rex_controlEvents(.ValueChanged).map { Int(($0 as! UISlider).value) }
     vm.gender <~ genderSegmentControl.rex_controlEvents(.ValueChanged).map { $0 as! UISegmentedControl }.filterMap { s in
       Optional(s.selectedSegmentIndex).flatMap { $0 == -1 ? nil : s.titleForSegmentAtIndex($0) }
     }
     
     /* TitleLabel */
-    titleLabel.rex_text <~ vm.title
+    titleNavigationItem.rex_stringProperty("title") <~ vm.title
     
     /* UserNumLabel */
     userNumLabel.rex_text <~ vm.userNum.producer.map { String($0) }
@@ -50,34 +47,34 @@ final class SearchUsersViewController: BaseViewController {
     
     /* ActivityIndicator */
     vm.isSearching.producer.startWithNext { [weak self] in $0 ? self?.activityIndicator.startAnimating() : self?.activityIndicator.stopAnimating() }
-
+    
     /* TableView */
-    vm.users.producer.startWithNext { [weak self] _ in self?.tableView.reloadData() }
-    
-    // TODO: Separate LoginViewModel and UserViewModel.
-    
-    // TODO: You can declare relationship between child viewcontroller and parent viewcontroller by binding inside viewmodel from one of its property to newly created child viewmodel's property
-    // TODO: This kind of declaring relationship between viewcontrollers by using viewmodel can fully replace ugly delegate patterns.
-    
-    // TODO: With regards to simple relationship like presentingVC and alertVC and the like can simply share the same viewmodel to further emphasize their tight relationship.
+    vm.reloadSignal.observeNext { [weak self] in self?.tableView.reloadData() }
   }
 }
 
 // MARK: UITableViewDataSource
-extension SearchUsersViewController: UITableViewDataSource {
+extension UsersViewController: UITableViewDataSource {
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return vm.users.value.count
+    return vm.usersCount
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("UserCell", forIndexPath: indexPath) as! UserCell
-    cell.user = vm.users.value[indexPath.row]
+    cell.user = vm.userAt(indexPath)
     return cell
   }
 }
 
 // MARK: UITableViewDelegate
-extension SearchUsersViewController: UITableViewDelegate {}
+extension UsersViewController: UITableViewDelegate {
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    push(EditCommentViewController.self) { [unowned self] in
+      $0.vm = self.vm.editCommentVM(indexPath)
+      return $0
+    }
+  }
+}
 
 
 

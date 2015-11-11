@@ -11,13 +11,13 @@ import AlamofireImage
 
 class UserCell: UITableViewCell {
   @IBOutlet weak var usernameLabel: UILabel!
-  @IBOutlet weak var emailLabel: UILabel!
+  @IBOutlet weak var commentLabel: UILabel!
   @IBOutlet weak var userImageView: UIImageView!
   
   var user: User! {
     didSet {
       usernameLabel.text = user.username
-      emailLabel.text = user.email
+      commentLabel.text = user.comment
       userImageView.af_setImageWithURL(NSURL(string: user.imageUrl)!)
     }
   }
