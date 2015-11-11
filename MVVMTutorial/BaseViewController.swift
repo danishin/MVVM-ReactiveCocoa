@@ -8,6 +8,8 @@
 
 import UIKit
 
+protocol ViewModel {}
+
 class BaseViewController: UIViewController {
   func bind() {}
   

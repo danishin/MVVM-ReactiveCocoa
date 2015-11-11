@@ -11,22 +11,18 @@ import Nimble
 
 @testable import MVVMTutorial
 
-class LoginViewModelSpec {
+class LoginViewModelSpec: Testable {
   static func test(vm: LoginViewModel) {
-    describe("LoginViewModel") {
-      it("") {
-        vm.loggedIn === false
-        vm.loginEnabled === false
-        
-        vm.username.value = "Daniel1104"
-        vm.password.value = "password"
-        
-        vm.loginEnabled === true
-        
-        vm.login.run()
-        
-        vm.loggedIn &=== true
-      }
-    }
+    vm.loggedIn === false
+    vm.loginEnabled === false
+    
+    vm.username.value = "Daniel1104"
+    vm.password.value = "password"
+    
+    vm.loginEnabled === true
+    
+    vm.login.run()
+    
+    vm.loggedIn &=== true
   }
 }

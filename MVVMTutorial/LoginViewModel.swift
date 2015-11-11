@@ -8,7 +8,7 @@
 
 import ReactiveCocoa
 
-class LoginViewModel {
+class LoginViewModel: ViewModel {
   
   // Inputs
   let username = MutableProperty("")

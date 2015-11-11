@@ -12,6 +12,14 @@ import Swinject
 
 @testable import MVVMTutorial
 
+protocol Testable {
+  typealias VM: ViewModel
+  static func test(vm: VM)
+}
+extension Testable {
+  static func exec(vm: VM) { describe(String(self.dynamicType)) { it("") { test(vm) } } }
+}
+
 class IntegrationSpec: QuickSpec {
   let c = SwinjectStoryboard.defaultContainer
   
@@ -19,7 +27,7 @@ class IntegrationSpec: QuickSpec {
     c.register(Config.self) { _ in MockConfig() }
     c.register(API.self) { _ in MockAPI() }
     
-    LoginViewModelSpec.test(c.get(LoginViewModel))
-    UsersViewModelSpec.test(c.get(UsersViewModel))
+    LoginViewModelSpec.exec(c.get(LoginViewModel))
+    UsersViewModelSpec.exec(c.get(UsersViewModel))
   }
 }

@@ -11,21 +11,19 @@ import Nimble
 
 @testable import MVVMTutorial
 
-final class UsersViewModelSpec {
+final class UsersViewModelSpec: Testable {
   static func test(vm: UsersViewModel) {
-    describe("UsersViewModel") {
-      let userNum = 1
-      it("") {
-        vm.userNum.value = userNum
-        vm.gender.value = "female"
-        
-        vm.search.run()
-        
-        vm.isSearching &=== true
-        vm.isSearching &=== false
-        vm.usersCount === userNum
-      }
-    }
+    let userNum = 1
+    let gender = "female"
+    
+    vm.userNum.value = userNum
+    vm.gender.value = gender
+    
+    vm.search.run()
+    
+    vm.isSearching &=== true
+    vm.isSearching &=== false
+    vm.usersCount === userNum
   }
 }
 

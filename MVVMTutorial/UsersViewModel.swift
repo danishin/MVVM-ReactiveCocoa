@@ -11,7 +11,7 @@ import Rex
 import BrightFutures
 import RealmSwift
 
-final class UsersViewModel {
+final class UsersViewModel: ViewModel {
   // Inputs
   let userNum = MutableProperty(0)
   let gender = MutableProperty("")
