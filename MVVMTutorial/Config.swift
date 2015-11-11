@@ -13,7 +13,7 @@ import RealmSwift
 protocol Config {
   /* Overridable */
   var BaseURL: String { get }
-  func RealmConfig(user_id: Int) -> Realm.Configuration
+  func RealmConfig(username: String) -> Realm.Configuration
 }
 
 extension Config {
@@ -22,13 +22,12 @@ extension Config {
 
 class DefaultConfig: Config {
   let BaseURL = "Run"
-  func RealmConfig(user_id: Int) -> Realm.Configuration {
+  func RealmConfig(username: String) -> Realm.Configuration {
     var config = Realm.Configuration()
-//    return Realm.Configuration.defaultConfiguration
     
     config.path = NSURL.fileURLWithPath(config.path!)
       .URLByDeletingLastPathComponent?
-      .URLByAppendingPathComponent("\(user_id).realm")
+      .URLByAppendingPathComponent("\(username).realm")
       .path
     
     return config

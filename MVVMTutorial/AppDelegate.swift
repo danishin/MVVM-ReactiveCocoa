@@ -9,44 +9,6 @@
 import UIKit
 import Swinject
 
-extension Resolvable {
-  func get<Service>(serviceType: Service.Type) -> Service {
-    guard let service = resolve(serviceType) else { fatalError("DI Error: Failed to resolve \(serviceType)") }
-    return service
-  }
-  
-  // TODO: Use HList for args?
-  func get<Service, Arg1>(serviceType: Service.Type, arg1: Arg1) -> Service {
-    guard let service = resolve(serviceType, arg1: arg1) else { fatalError("DI Error: Failed to resolve \(serviceType) with \(arg1)") }
-    return service
-  }
-}
-
-extension SwinjectStoryboard {
-  class func setup() {
-    let c = defaultContainer
-    
-    /* Configuration */
-    c.register(Config.self) { _ in DefaultConfig() }.inObjectScope(.Container)
-    
-    /* Model */
-    c.register(LocalUser.self) { _ in LocalUser() }.inObjectScope(.Container)
-    // NB: Let's pretend this user is authenticated and has user_id of 1
-    c.get(LocalUser.self).authenticated(1)
-    
-    c.register(API.self) { r in DefaultAPI(config: r.get(Config.self)) }.inObjectScope(.Container)
-    c.register(DB.self) { r in RealmDB(config: r.get(Config.self), localUser: r.get(LocalUser.self)) }.inObjectScope(.Container)
-    
-    /* ViewModel */
-    c.register(ViewModel.self) { r in ViewModel(api: r.get(API.self), db: r.get(DB.self)) }.inObjectScope(.Container)
-    
-    /* View */
-    c.registerForStoryboard(ViewController.self) { r, vc in
-      vc.vm = r.get(ViewModel.self)
-    }
-  }
-}
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?

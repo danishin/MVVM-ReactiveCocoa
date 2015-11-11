@@ -8,8 +8,8 @@
 
 import Realm
 import RealmSwift
+import ReactiveCocoa
 
-// FIXME: Use better name
 final class Supervisor: Object {
   let users = List<User>()
 }
@@ -17,11 +17,16 @@ final class Supervisor: Object {
 extension Supervisor {
   static func sharedInstance(rc: RealmConfig) -> Supervisor {
     let realm = try! Realm(configuration: rc)
-    if let notifier = realm.objects(Supervisor).first { return notifier }
+    if let supervisor = realm.objects(Supervisor).first { return supervisor }
     
     let supervisor = Supervisor()
     try! realm.write { realm.add(supervisor) }
     
     return supervisor
+  }
+  
+  func observeUsers() -> SignalProducer<List<User>, NoError> {
+    // FIXME: How to map over RLMArray?
+    return DynamicProperty(object: self, keyPath: "users").producer.observeOn(QueueScheduler.mainQueueScheduler).map { [unowned self] _ in self.users }
   }
 }

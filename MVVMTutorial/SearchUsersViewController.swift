@@ -10,7 +10,7 @@ import UIKit
 import ReactiveCocoa
 import Rex
 
-final class ViewController: UIViewController {
+final class SearchUsersViewController: UIViewController {
   @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var userNumLabel: UILabel!
   @IBOutlet weak var userNumSlider: UISlider!
@@ -19,7 +19,7 @@ final class ViewController: UIViewController {
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   @IBOutlet weak var tableView: UITableView!
   
-  var vm: ViewModel!
+  var vm: SearchUsersViewModel!
   
   // FIXME: Even all logics concerning simple `enabled`-like state needs to be delegated to viewmodel. View must be completely dumb.
   override func viewDidLoad() {
@@ -27,9 +27,7 @@ final class ViewController: UIViewController {
     
     vm.userNum <~ userNumSlider.rex_controlEvents(.ValueChanged).map { Int(($0 as! UISlider).value) }
     vm.gender <~ genderSegmentControl.rex_controlEvents(.ValueChanged).map { $0 as! UISegmentedControl }.filterMap { s in
-      Optional(s.selectedSegmentIndex)
-        .flatMap { $0 == -1 ? nil : $0 }
-        .flatMap { s.titleForSegmentAtIndex($0) }
+      Optional(s.selectedSegmentIndex).flatMap { $0 == -1 ? nil : s.titleForSegmentAtIndex($0) }
     }
     
     /* TitleLabel */
@@ -40,15 +38,15 @@ final class ViewController: UIViewController {
     
     /* UserNumSlider */
     userNumSlider.rex_enabled <~ vm.isSearching.producer.map { !$0 }
-    userNumSlider.rex_stringProperty("value") <~ vm.userNum.producer.filterMap { $0 == 0 ? "" : nil }
+    userNumSlider.property("value") <~ vm.userNum.producer.filterMap { $0 == 0 ? "" : nil }
     
     /* GenderSegmentControl */
     // NB: Choose between DynamicProperty or rex_valueForProperty for UIControls whose value is not String
-    DynamicProperty(object: genderSegmentControl, keyPath: "selectedSegmentIndex") <~ vm.gender.producer.filterMap { $0 == "" ? -1 : nil }
+    genderSegmentControl.property("selectedSegmentIndex") <~ vm.gender.producer.filterMap { $0.isEmpty ? -1 : nil }
     
     /* SearchButton */
     searchButton.rex_pressed <~ vm.search
-    searchButton.rex_title <~ vm.isSearching.producer.map { $0 ? "Searching..." : "Search" }
+    searchButton.rex_title <~ vm.buttonTitle
     
     /* ActivityIndicator */
     vm.isSearching.producer.startWithNext { [weak self] in $0 ? self?.activityIndicator.startAnimating() : self?.activityIndicator.stopAnimating() }
@@ -66,33 +64,24 @@ final class ViewController: UIViewController {
 }
 
 // MARK: UITableViewDataSource
-extension ViewController: UITableViewDataSource {
+extension SearchUsersViewController: UITableViewDataSource {
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return vm.numberOfUsersInSection(section)
+    return vm.users.value.count
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("UserCell", forIndexPath: indexPath) as! UserCell
-    cell.user = vm.userForRowAtIndexPath(indexPath)
+    cell.user = vm.users.value[indexPath.row]
     return cell
   }
 }
 
 // MARK: UITableViewDelegate
-extension ViewController: UITableViewDelegate {
-  
-}
+extension SearchUsersViewController: UITableViewDelegate {}
 
-// stateless core, stateful shell
-// Keep core domain logic in completely immutable value types
-// Add stateful shell objects with mutable references to the immutable data
-class LoginViewModel {
-  var username: String?
-  var password: String?
-  
-  func login() -> UserViewModel? { return nil }
-}
 
-class UserViewModel {
-  var loggedInUser: User?
-}
+
+
+
+
+

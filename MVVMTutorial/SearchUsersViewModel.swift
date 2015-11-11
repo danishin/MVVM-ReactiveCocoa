@@ -12,20 +12,17 @@ import BrightFutures
 import Realm
 import RealmSwift
 
-private extension CocoaAction {
-  static var disabled: CocoaAction {
-    return CocoaAction(Action<Void, Void, ReactiveCocoa.NoError>.rex_disabled, input: ())
-  }
-}
-
-final class ViewModel {
-  // Properties
-  let title = MutableProperty("")
+final class SearchUsersViewModel {
+  // Inputs
   let userNum = MutableProperty(0)
   let gender = MutableProperty("")
   
   // Outputs
+  let title = MutableProperty("")
+  let buttonTitle = MutableProperty("Search")
   let isSearching = MutableProperty(false)
+  
+  // Models
   let users = MutableProperty<List<User>>(List())
   
   // Actions
@@ -45,7 +42,6 @@ final class ViewModel {
   // Dependencies
   private let api: API
   private let db: DB
-  
   private let supervisor: Supervisor
   
   init(api: API, db: DB) {
@@ -57,19 +53,17 @@ final class ViewModel {
     userNum <~ searchStarted.map { 0 }
     gender <~ searchStarted.map { "" }
     
-    searchEnabled <~ combineLatest(userNum.producer.map { $0 != 0 }, gender.producer.map { $0 != "" }).map { $0 && $1 }
+    buttonTitle <~ isSearching.producer.map { $0 ? "Searching..." : "Search" }
     
-    // FIXME: How to map over RLMArray?
-    users <~ DynamicProperty(object: supervisor, keyPath: "users").producer.observeOn(QueueScheduler.mainQueueScheduler).map { [unowned self] _ in self.supervisor.users }
-    
-    search <~ combineLatest(userNum.producer, gender.producer).map { [unowned self] in CocoaAction(self.searchAction, input: ($0, $1)) }
+    searchEnabled <~ combineLatest(
+      userNum.producer.map { $0 != 0 },
+      gender.producer.map { $0 != "" }
+    ).map { $0 && $1 }
     
     isSearching <~ searchAction.executing.producer.skipRepeats().observeOn(QueueScheduler.mainQueueScheduler)
+    users <~ supervisor.observeUsers()
+    search <~ combineLatest(userNum.producer, gender.producer).map { [unowned self] in CocoaAction(self.searchAction, input: ($0, $1)) }
   }
-  
-  // MARK: Data Source
-  func numberOfUsersInSection(section: Int) -> Int { return users.value.count }
-  func userForRowAtIndexPath(indexPath: NSIndexPath) -> User { return users.value[indexPath.row] }
 }
 
 

@@ -16,7 +16,6 @@ github "Swinject/Swinject" ~> 0.4
 
 ## ETC
 github "Anviking/Decodable" ~> 0.3.3
-github "radex/SwiftyUserDefaults" ~> 2.0.0
 
 ## Test
 github "Quick/Quick" ~> 0.8.0

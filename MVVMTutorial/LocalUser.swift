@@ -6,25 +6,38 @@
 //  Copyright © 2015 Daniel Shin. All rights reserved.
 //
 
-import SwiftyUserDefaults
+import Foundation
 
-private extension DefaultsKeys {
-  static let user_id = DefaultsKey<Int?>("user_id")
+// NB: Modifiable is type-level constraint to tell if the field is modifiable. `Void` means non-modifiable while `Bool` mean modifiable.
+protocol LocalUserKey {
+  typealias Value;
+  typealias Modifiable;
+  static var name: String { get }
 }
 
+struct UserId: LocalUserKey   { typealias Value = Int; typealias Modifiable = Void; static let name = "user_id" }
+struct Username: LocalUserKey { typealias Value = String; typealias Modifiable = Bool; static let name = "username" }
+
 class LocalUser {
-  var user_id: Int { return get(Defaults[.user_id]) }
-  
-  private func get<A>(a: A?) -> A {
-    if let a = a {
-      return a
+  func get<K: LocalUserKey>(k: K.Type) -> K.Value {
+    if let value = NSUserDefaults.standardUserDefaults().objectForKey(k.name) as? K.Value {
+      return value
     } else {
-      // FIXME: Handle Error.
-      fatalError()
+      fatalError("cannot find \(k.name)")
     }
   }
   
-  func authenticated(user_id: Int) {
-    Defaults[.user_id] = user_id
+  // NB: Curried for type inference
+  private func _set<K: LocalUserKey>(k: K.Type)(value: K.Value) {
+    NSUserDefaults.standardUserDefaults().setObject(value as! NSObject, forKey: k.name)
+  }
+  
+  func set<K: LocalUserKey where K.Modifiable == Bool>(k: K.Type)(value: K.Value) {
+    _set(k)(value: value)
+  }
+  
+  func authenticated(user_id user_id: Int, username: String) {
+    _set(UserId)(value: user_id)
+    _set(Username)(value: username)
   }
 }
