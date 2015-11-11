@@ -9,6 +9,8 @@
 import ReactiveCocoa
 import Rex
 import BrightFutures
+import Realm
+import RealmSwift
 
 private extension CocoaAction {
   static var disabled: CocoaAction {
@@ -24,7 +26,7 @@ final class ViewModel {
   
   // Outputs
   let isSearching = MutableProperty(false)
-  let userCellModels = MutableProperty<[UserCellModel]>([])
+  let users = MutableProperty<List<User>>(List())
   
   // Actions
   let search = MutableProperty(CocoaAction.disabled)
@@ -58,7 +60,7 @@ final class ViewModel {
     searchEnabled <~ combineLatest(userNum.producer.map { $0 != 0 }, gender.producer.map { $0 != "" }).map { $0 && $1 }
     
     // FIXME: How to map over RLMArray?
-    userCellModels <~ DynamicProperty(object: supervisor, keyPath: "users").producer.observeOn(QueueScheduler.mainQueueScheduler).map { [unowned self] _ in self.supervisor.users.map(UserCellModel.from) }
+    users <~ DynamicProperty(object: supervisor, keyPath: "users").producer.observeOn(QueueScheduler.mainQueueScheduler).map { [unowned self] _ in self.supervisor.users }
     
     search <~ combineLatest(userNum.producer, gender.producer).map { [unowned self] in CocoaAction(self.searchAction, input: ($0, $1)) }
     
@@ -66,10 +68,29 @@ final class ViewModel {
   }
   
   // MARK: Data Source
-  func numberOfRowsInSection(section: Int) -> Int {
-    return userCellModels.value.count
-  }
-  
-//  func userCellModelForRowAtIndexPath()
-  
+  func numberOfUsersInSection(section: Int) -> Int { return users.value.count }
+  func userForRowAtIndexPath(indexPath: NSIndexPath) -> User { return users.value[indexPath.row] }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
