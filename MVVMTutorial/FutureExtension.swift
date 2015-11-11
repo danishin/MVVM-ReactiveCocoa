@@ -38,4 +38,13 @@ extension Future {
       }}
     }
   }
+  
+  func debug(name: String = "Unknown") -> Future<T, E> {
+    return onComplete {
+      switch $0 {
+      case let .Success(t): print("DEBUG Future [\(name)]: Success: \(t)")
+      case let .Failure(e): print("DEBUG Future [\(name)]: Failure: \(e)")
+      }
+    }
+  }
 }

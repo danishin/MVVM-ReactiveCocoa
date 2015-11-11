@@ -38,6 +38,16 @@
                ReferencedContainer = "container:MVVMTutorial.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "654411B31BEB147300473810"
+               BuildableName = "MVVMTutorialUITests.xctest"
+               BlueprintName = "MVVMTutorialUITests"
+               ReferencedContainer = "container:MVVMTutorial.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

@@ -28,7 +28,7 @@ class RealmDB: DB {
   let notifier: Notifier = Notifier.sharedInstance()
   private let rc: RealmConfig
   
-  init(config: Config, localUser: LocalUser) { print(config.BaseURL) ;self.rc = config.RealmConfig(localUser.user_id) }
+  init(config: Config, localUser: LocalUser) { self.rc = config.RealmConfig(localUser.user_id) }
   
   func exec<DR: DBRequest>(dr: DR) -> Future<DR.Result, AppError> {
     return future { try dr.query(self.rc) }(AppError.DB)
