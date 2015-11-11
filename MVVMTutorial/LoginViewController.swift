@@ -18,11 +18,15 @@ class LoginViewController: BaseViewController {
   var vm: LoginViewModel!
   
   override func bind() {
-    vm.username <~ usernameTextField.textSignalProducer.debug()
-    vm.password <~ passwordTextField.textSignalProducer.debug()
+    vm.username <~ usernameTextField.textSignalProducer
+    vm.password <~ passwordTextField.textSignalProducer
     
     loginButton.rex_pressed <~ vm.login.debug()
     
-    vm.loggedIn.producer.filter { $0 }.startWithNext { [unowned self] _ in self.performSegueWithIdentifier("ShowSearchUsers", sender: self) }
+    vm.loggedIn.producer.filter{ $0 }.startWithNext { [unowned self] _ in
+      self.usernameTextField.text = ""
+      self.passwordTextField.text = ""
+      self.performSegueWithIdentifier("ShowSearchUsers", sender: self)
+    }
   }
 }

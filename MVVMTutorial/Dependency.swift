@@ -17,19 +17,19 @@ extension SwinjectStoryboard {
     
     /* Model */
     c.register(LocalUser.self) { _ in LocalUser() }.inObjectScope(.Container)
-    c.register(API.self) { r in DefaultAPI(config: r.get(Config.self)) }.inObjectScope(.Container)
-    c.register(DB.self) { r in RealmDB(config: r.get(Config.self), localUser: r.get(LocalUser.self)) }.inObjectScope(.Container)
+    c.register(API.self) { r in DefaultAPI(config: r.get(Config)) }.inObjectScope(.Container)
+    c.register(DB.self) { r in RealmDB(config: r.get(Config), localUser: r.get(LocalUser)) }.inObjectScope(.Container)
     
     /* ViewModel */
-    c.register(LoginViewModel.self) { r in LoginViewModel(localUser: r.get(LocalUser.self)) }
-    c.register(UsersViewModel.self) { r in UsersViewModel(api: r.get(API.self), db: r.get(DB.self)) }.inObjectScope(.Container)
+    c.register(LoginViewModel.self) { r in LoginViewModel(localUser: r.get(LocalUser)) }
+    c.register(UsersViewModel.self) { r in UsersViewModel(api: r.get(API), db: r.get(DB)) }.inObjectScope(.Container)
     
     /* View */
     c.registerForStoryboard(LoginViewController.self) { r, vc in
-      vc.vm = r.get(LoginViewModel.self)
+      vc.vm = r.get(LoginViewModel)
     }
     c.registerForStoryboard(UsersViewController.self) { r, vc in
-      vc.vm = r.get(UsersViewModel.self)
+      vc.vm = r.get(UsersViewModel)
     }
   }
 }

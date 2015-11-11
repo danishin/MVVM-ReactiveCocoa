@@ -22,13 +22,12 @@ class EditCommentViewModel {
   init(username: String, db: DB, reloadObserver: Observer<Void, NoError>) {
     saveEnabled <~ comment.producer.map { !$0.isEmpty }
     
-    let saveAction: Action<String, Void, AppError> = Action(enabledIf: self.saveEnabled) {
+    let saveAction = Action.future(saveEnabled) {
       db.exec(UpdateUserComment(username: username, comment: $0))
         .onSuccess { [unowned self] _ in
           reloadObserver.sendNext(())
           self.doneObserver.sendCompleted()
         }
-        .toSignalProducer()
     }
     
     save <~ comment.producer.map { CocoaAction(saveAction, input: $0) }

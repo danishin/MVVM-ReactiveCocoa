@@ -39,16 +39,16 @@ final class UsersViewModel {
     self.db = db
     self.supervisor = db.supervisor()
     
-    let searchAction = Action(enabledIf: self.searchEnabled) { [weak self] in
+    let searchAction = Action.future(searchEnabled) {
       api.exec(GETRandomUser(userNum: $0, gender: $1))
-        .flatMap { r in db.exec(InsertUsers(users: r.users)).onSuccess { self?.title.value = "Current Fetched Country: \(r.nationality)" }}
+        .flatMap { r in db.exec(InsertUsers(users: r.users)).onSuccess { [weak self] in self?.title.value = "Current Fetched Country: \(r.nationality)" }}
         .map { _ in () }
-        .toSignalProducer()
     }
     
-    let searchStarted = isSearching.producer.filterMap { $0 ? () : nil }
-    userNum <~ searchStarted.map { 0 }
-    gender <~ searchStarted.map { "" }
+    isSearching.producer.filter { $0 }.startWithNext { [weak self] _ in
+      self?.userNum.value = 0
+      self?.gender.value = ""
+    }
     
     buttonTitle <~ isSearching.producer.map { $0 ? "Searching..." : "Search" }
     

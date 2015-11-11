@@ -8,7 +8,7 @@
 
 import ReactiveCocoa
 
-class LoginViewModel: ViewModel {
+class LoginViewModel {
   
   // Inputs
   let username = MutableProperty("")
@@ -22,8 +22,8 @@ class LoginViewModel: ViewModel {
   let login = MutableProperty(CocoaAction.disabled)
   
   init(localUser: LocalUser) {
-    let loginAction: Action<String, Void, NoError> = Action(enabledIf: self.loginEnabled) {
-      localUser.authenticated(user_id: 1, username: $0)
+    let loginAction: Action<String, Void, NoError> = Action(enabledIf: loginEnabled) { [unowned self] username in
+      localUser.authenticated(user_id: 1, username: username)
       self.loggedIn.value = true
       
       return SignalProducer.empty

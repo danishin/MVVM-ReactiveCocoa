@@ -52,6 +52,12 @@ extension CocoaAction {
   }
 }
 
+extension Action {
+  static func future<P: PropertyType where P.Value == Bool>(enabledIf: P, _ execute: Input -> Future<Output, Error>) -> Action<Input, Output, Error> {
+    return self.init(enabledIf: enabledIf) { execute($0).toSignalProducer() }
+  }
+}
+
 
 /* Swinject */
 extension Resolvable {
