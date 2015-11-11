@@ -10,7 +10,7 @@ import UIKit
 import ReactiveCocoa
 import Rex
 
-final class SearchUsersViewController: UIViewController {
+final class SearchUsersViewController: BaseViewController {
   @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var userNumLabel: UILabel!
   @IBOutlet weak var userNumSlider: UISlider!

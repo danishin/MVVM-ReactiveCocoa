@@ -24,6 +24,7 @@
 		65716A971BEB6DB300BA6DBC /* SearchUsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65716A961BEB6DB300BA6DBC /* SearchUsersViewModel.swift */; settings = {ASSET_TAGS = (); }; };
 		65716A9C1BEB814E00BA6DBC /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65716A9B1BEB814E00BA6DBC /* AppError.swift */; settings = {ASSET_TAGS = (); }; };
 		6579BE6B1BF32041003DD15D /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6579BE6A1BF32041003DD15D /* Dependency.swift */; settings = {ASSET_TAGS = (); }; };
+		6579BE6D1BF3358E003DD15D /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6579BE6C1BF3358E003DD15D /* BaseViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		657C54B81BF304E800D273A1 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 657C54B61BF304E800D273A1 /* Nimble.framework */; };
 		657C54B91BF304E800D273A1 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 657C54B71BF304E800D273A1 /* Quick.framework */; };
 		658563671BED2E03000FB3F9 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658563661BED2E03000FB3F9 /* Config.swift */; settings = {ASSET_TAGS = (); }; };
@@ -122,6 +123,7 @@
 		65716A961BEB6DB300BA6DBC /* SearchUsersViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchUsersViewModel.swift; sourceTree = "<group>"; };
 		65716A9B1BEB814E00BA6DBC /* AppError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		6579BE6A1BF32041003DD15D /* Dependency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Dependency.swift; path = ../../../../../Daniel/code/swift/MVVMTutorial/MVVMTutorial/Dependency.swift; sourceTree = "<group>"; };
+		6579BE6C1BF3358E003DD15D /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseViewController.swift; path = ../../../../../Daniel/code/swift/MVVMTutorial/MVVMTutorial/BaseViewController.swift; sourceTree = "<group>"; };
 		657C54B61BF304E800D273A1 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = SOURCE_ROOT; };
 		657C54B71BF304E800D273A1 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = SOURCE_ROOT; };
 		658563661BED2E03000FB3F9 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				6579BE6A1BF32041003DD15D /* Dependency.swift */,
 				65F8A8CE1BF1CA1100AA401F /* LocalUser.swift */,
 				65716A9B1BEB814E00BA6DBC /* AppError.swift */,
+				6579BE6C1BF3358E003DD15D /* BaseViewController.swift */,
 				6579BE691BF31789003DD15D /* App */,
 				6544119C1BEB147300473810 /* Main.storyboard */,
 				654411D81BEB335E00473810 /* SupportingFiles */,
@@ -502,6 +505,7 @@
 				65AC309C1BF3166E00615FEF /* LoginViewController.swift in Sources */,
 				65AC309E1BF3168600615FEF /* LoginViewModel.swift in Sources */,
 				65B398871BEF96BE00804073 /* Supervisor.swift in Sources */,
+				6579BE6D1BF3358E003DD15D /* BaseViewController.swift in Sources */,
 				65B3987C1BEF7FDC00804073 /* Fetch.swift in Sources */,
 				65716A8F1BEB691C00BA6DBC /* POST.swift in Sources */,
 				65716A971BEB6DB300BA6DBC /* SearchUsersViewModel.swift in Sources */,

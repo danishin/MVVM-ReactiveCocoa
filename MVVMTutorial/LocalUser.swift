@@ -27,11 +27,6 @@ class LocalUser {
     }
   }
   
-  // NB: Curried for type inference
-  private func _set<K: LocalUserKey>(k: K.Type)(value: K.Value) {
-    NSUserDefaults.standardUserDefaults().setObject(value as! NSObject, forKey: k.name)
-  }
-  
   func set<K: LocalUserKey where K.Modifiable == Bool>(k: K.Type)(value: K.Value) {
     _set(k)(value: value)
   }
@@ -39,5 +34,10 @@ class LocalUser {
   func authenticated(user_id user_id: Int, username: String) {
     _set(UserId)(value: user_id)
     _set(Username)(value: username)
+  }
+  
+  // NB: Curried for type inference
+  private func _set<K: LocalUserKey>(k: K.Type)(value: K.Value) {
+    NSUserDefaults.standardUserDefaults().setObject(value as! NSObject, forKey: k.name)
   }
 }
