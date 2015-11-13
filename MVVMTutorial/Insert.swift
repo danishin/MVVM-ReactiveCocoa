@@ -14,19 +14,17 @@ extension Insert { var queue: dispatch_queue_t { return dispatch_get_global_queu
 struct InsertUser: Insert {
   let user: User
   
-  func query(rc: RealmConfig) throws -> Void {
-    let r = try Realm(configuration: rc)
-    try r.write { r.add(user, update: true) }
+  func query(r: Realm) throws -> Void {
+    let s = r.supervisor
+    try r.write { s.users.append(user) }
   }
 }
 
 struct InsertUsers: Insert {
   let users: [User]
   
-  func query(rc: RealmConfig) throws -> Void {
-    let r = try Realm(configuration: rc)
+  func query(r: Realm) throws -> Void {
     let s = r.supervisor
-    
     try r.write { s.users.appendContentsOf(users) }
   }
 }

@@ -13,7 +13,7 @@ final class User: Object {
   dynamic var username: String = ""
   dynamic var name: String = ""
   dynamic var email: String = ""
-  dynamic var password: String = ""
+  private dynamic var password: String = ""
   dynamic var imageUrl: String = ""
   
   dynamic var comment: String = ""
@@ -22,6 +22,8 @@ final class User: Object {
 }
 
 extension User: Decodable {
+  var decorated_username: String { return "\(name): \(username)" }
+  
   static func decode(j: AnyObject) throws -> User {
     let u = User()
     

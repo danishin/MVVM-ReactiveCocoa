@@ -16,7 +16,7 @@ class UserCell: UITableViewCell {
   
   var user: User! {
     didSet {
-      usernameLabel.text = user.username
+      usernameLabel.text = user.decorated_username
       commentLabel.text = user.comment
       userImageView.af_setImageWithURL(NSURL(string: user.imageUrl)!)
     }
