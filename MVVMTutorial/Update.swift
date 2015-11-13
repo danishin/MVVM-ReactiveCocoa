@@ -15,7 +15,7 @@ extension Update { var queue: dispatch_queue_t { return dispatch_get_global_queu
 struct UpdateUserComment: Update {
   let username: String, comment: String
   
-  func query(r: Realm) throws -> Void {
-    try r.write { r.objectForPrimaryKey(User.self, key: username)?.comment = comment }
+  func query(m: Model) throws -> Void {
+//    try m.write { r.objectForPrimaryKey(User.self, key: username)?.comment = comment }
   }
 }

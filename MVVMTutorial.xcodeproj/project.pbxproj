@@ -44,15 +44,15 @@
 		65B398761BEF2CFC00804073 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B398751BEF2CFC00804073 /* RealmSwift.framework */; };
 		65B398771BEF2CFC00804073 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 65B398751BEF2CFC00804073 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		65B3987A1BEF7F3B00804073 /* DB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B398791BEF7F3B00804073 /* DB.swift */; settings = {ASSET_TAGS = (); }; };
-		65B3987C1BEF7FDC00804073 /* Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B3987B1BEF7FDC00804073 /* Fetch.swift */; settings = {ASSET_TAGS = (); }; };
 		65B398801BEF837000804073 /* Insert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B3987F1BEF837000804073 /* Insert.swift */; settings = {ASSET_TAGS = (); }; };
-		65B398871BEF96BE00804073 /* Supervisor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B398861BEF96BE00804073 /* Supervisor.swift */; settings = {ASSET_TAGS = (); }; };
+		65B398871BEF96BE00804073 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B398861BEF96BE00804073 /* Model.swift */; settings = {ASSET_TAGS = (); }; };
 		65F0F7531BF37E18007169E4 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 656EB45E1BF37D5C004D34D7 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		65F0F7541BF37E18007169E4 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 656EB45F1BF37D5C004D34D7 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		65F0F7571BF37EC4007169E4 /* IntegrationSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F0F7561BF37EC4007169E4 /* IntegrationSpec.swift */; settings = {ASSET_TAGS = (); }; };
 		65F0F75E1BF380DF007169E4 /* LoginViewModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F0F75D1BF380DF007169E4 /* LoginViewModelSpec.swift */; settings = {ASSET_TAGS = (); }; };
 		65F0F7601BF38482007169E4 /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F0F75F1BF38482007169E4 /* TestHelpers.swift */; settings = {ASSET_TAGS = (); }; };
 		65F8A8CF1BF1CA1100AA401F /* LocalUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F8A8CE1BF1CA1100AA401F /* LocalUser.swift */; settings = {ASSET_TAGS = (); }; };
+		65FB73191BF62C22008EF76E /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FB73181BF62C22008EF76E /* Stream.swift */; settings = {ASSET_TAGS = (); }; };
 		65FF546F1BEEDADF006C9B36 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65FF54681BEEDADF006C9B36 /* Alamofire.framework */; };
 		65FF54701BEEDADF006C9B36 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 65FF54681BEEDADF006C9B36 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		65FF54711BEEDADF006C9B36 /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65FF54691BEEDADF006C9B36 /* AlamofireImage.framework */; };
@@ -166,13 +166,13 @@
 		65B398731BEF26CA00804073 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Models.swift; path = ../../../../../Daniel/code/swift/MVVMTutorial/MVVMTutorial/Models.swift; sourceTree = "<group>"; };
 		65B398751BEF2CFC00804073 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = ../Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		65B398791BEF7F3B00804073 /* DB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DB.swift; path = ../../../../../Daniel/code/swift/MVVMTutorial/MVVMTutorial/DB.swift; sourceTree = "<group>"; };
-		65B3987B1BEF7FDC00804073 /* Fetch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Fetch.swift; path = ../../../../../Daniel/code/swift/MVVMTutorial/MVVMTutorial/Fetch.swift; sourceTree = "<group>"; };
 		65B3987F1BEF837000804073 /* Insert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Insert.swift; path = ../../../../../Daniel/code/swift/MVVMTutorial/MVVMTutorial/Insert.swift; sourceTree = "<group>"; };
-		65B398861BEF96BE00804073 /* Supervisor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Supervisor.swift; path = ../../../../../Daniel/code/swift/MVVMTutorial/MVVMTutorial/Supervisor.swift; sourceTree = "<group>"; };
+		65B398861BEF96BE00804073 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Model.swift; path = ../../../../../Daniel/code/swift/MVVMTutorial/MVVMTutorial/Model.swift; sourceTree = "<group>"; };
 		65F0F7561BF37EC4007169E4 /* IntegrationSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IntegrationSpec.swift; path = ../../../../../Daniel/code/swift/MVVMTutorial/MVVMTutorialTests/IntegrationSpec.swift; sourceTree = "<group>"; };
 		65F0F75D1BF380DF007169E4 /* LoginViewModelSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewModelSpec.swift; path = ../../../../../Daniel/code/swift/MVVMTutorial/MVVMTutorialTests/LoginViewModelSpec.swift; sourceTree = "<group>"; };
 		65F0F75F1BF38482007169E4 /* TestHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestHelpers.swift; path = ../../../../../Daniel/code/swift/MVVMTutorial/MVVMTutorialTests/TestHelpers.swift; sourceTree = "<group>"; };
 		65F8A8CE1BF1CA1100AA401F /* LocalUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocalUser.swift; path = ../../../../../Daniel/code/swift/MVVMTutorial/MVVMTutorial/LocalUser.swift; sourceTree = "<group>"; };
+		65FB73181BF62C22008EF76E /* Stream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Stream.swift; path = ../../../../../Daniel/code/swift/MVVMTutorial/MVVMTutorial/Stream.swift; sourceTree = "<group>"; };
 		65FF54681BEEDADF006C9B36 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = ../Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		65FF54691BEEDADF006C9B36 /* AlamofireImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireImage.framework; path = ../Carthage/Build/iOS/AlamofireImage.framework; sourceTree = "<group>"; };
 		65FF546A1BEEDADF006C9B36 /* Decodable.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Decodable.framework; path = ../Carthage/Build/iOS/Decodable.framework; sourceTree = "<group>"; };
@@ -226,7 +226,7 @@
 		6508E7301BF0B7E80014DBFE /* Query */ = {
 			isa = PBXGroup;
 			children = (
-				65B3987B1BEF7FDC00804073 /* Fetch.swift */,
+				65FB73181BF62C22008EF76E /* Stream.swift */,
 				65B3987F1BEF837000804073 /* Insert.swift */,
 				6579BE731BF34F10003DD15D /* Update.swift */,
 			);
@@ -424,7 +424,7 @@
 				6591D6C81BEBBB8C00165B82 /* Model */,
 				6508E7301BF0B7E80014DBFE /* Query */,
 				65B398791BEF7F3B00804073 /* DB.swift */,
-				65B398861BEF96BE00804073 /* Supervisor.swift */,
+				65B398861BEF96BE00804073 /* Model.swift */,
 			);
 			name = DB;
 			sourceTree = "<group>";
@@ -591,9 +591,8 @@
 			files = (
 				65AC309C1BF3166E00615FEF /* LoginViewController.swift in Sources */,
 				65AC309E1BF3168600615FEF /* LoginViewModel.swift in Sources */,
-				65B398871BEF96BE00804073 /* Supervisor.swift in Sources */,
+				65B398871BEF96BE00804073 /* Model.swift in Sources */,
 				6579BE6D1BF3358E003DD15D /* BaseViewController.swift in Sources */,
-				65B3987C1BEF7FDC00804073 /* Fetch.swift in Sources */,
 				657C247B1BF5B598009D5C5C /* Socket.swift in Sources */,
 				65716A8F1BEB691C00BA6DBC /* POST.swift in Sources */,
 				65716A971BEB6DB300BA6DBC /* UsersViewModel.swift in Sources */,
@@ -606,6 +605,7 @@
 				6579BE721BF34991003DD15D /* EditCommentViewModel.swift in Sources */,
 				6544119B1BEB147300473810 /* UsersViewController.swift in Sources */,
 				654411991BEB147300473810 /* AppDelegate.swift in Sources */,
+				65FB73191BF62C22008EF76E /* Stream.swift in Sources */,
 				65B3987A1BEF7F3B00804073 /* DB.swift in Sources */,
 				65716A911BEB697500BA6DBC /* Request.swift in Sources */,
 				65392CDB1BF1F06F0012373A /* Extensions.swift in Sources */,

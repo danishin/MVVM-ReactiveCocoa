@@ -33,11 +33,9 @@ final class UsersViewModel: ViewModel {
   
   // Retained Dependencies
   private let db: DB
-  private let supervisor: Supervisor
   
   init(api: API, db: DB) {
     self.db = db
-    self.supervisor = db.supervisor()
     
     let searchAction = Action.future(searchEnabled) {
       api.exec(GETRandomUser(userNum: $0, gender: $1))
@@ -58,7 +56,7 @@ final class UsersViewModel: ViewModel {
     ).map { $0 && $1 }
     
     isSearching <~ searchAction.executing.producer.skipRepeats().observeOn(QueueScheduler.mainQueueScheduler)
-    users <~ supervisor.observeUsers()
+    users <~ db.stream(StreamUsers)
     search <~ combineLatest(userNum.producer, gender.producer).map { CocoaAction(searchAction, input: ($0, $1)) }
    
     users.producer.startWithNext { [weak self] _ in self?.reloadObserver.sendNext(()) }
