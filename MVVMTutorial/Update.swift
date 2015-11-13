@@ -17,7 +17,7 @@ struct UpdateUserComment: Update {
   
   func query(rc: RealmConfig) throws -> Void {
     let r = try Realm(configuration: rc)
-
-    try r.write { r.objects(User).filter("username = %@", username).first?.comment = comment }
+    
+    try r.write { r.objectForPrimaryKey(User.self, key: username)?.comment = comment }
   }
 }

@@ -15,6 +15,9 @@ class LoginViewController: BaseViewController {
   @IBOutlet weak var passwordTextField: UITextField!
   @IBOutlet weak var loginButton: UIButton!
   
+  @IBOutlet weak var echoTextView: UITextField!
+  @IBOutlet weak var echoedLabel: UILabel!
+  
   var vm: LoginViewModel!
   
   override func bind() {
@@ -28,5 +31,8 @@ class LoginViewController: BaseViewController {
       self.passwordTextField.text = ""
       self.performSegueWithIdentifier("ShowSearchUsers", sender: self)
     }
+    
+    vm.text <~ echoTextView.textSignalProducer
+    echoedLabel.rex_text <~ vm.echo
   }
 }

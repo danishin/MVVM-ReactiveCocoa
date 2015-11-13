@@ -7,6 +7,9 @@ github "Thomvis/BrightFutures" ~> 3.0.0
 github "Alamofire/Alamofire" ~> 3.1.2
 github "Alamofire/AlamofireImage" ~> 2.1.0
 
+## WebSocket
+github "daltoniam/Starscream" ~> 1.0.2
+
 ## DB
 # Fix this when #2793 is released
 github "realm/realm-cocoa" "master"

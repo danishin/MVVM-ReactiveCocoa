@@ -13,15 +13,26 @@ class LoginViewModel: ViewModel {
   // Inputs
   let username = MutableProperty("")
   let password = MutableProperty("")
+  let text = MutableProperty("")
   
   // Outputs
   let loginEnabled = MutableProperty(false)
   let loggedIn = MutableProperty(false)
+  let echo = MutableProperty("")
   
   // Actions
   let login = MutableProperty(CocoaAction.disabled)
   
-  init(localUser: LocalUser) {
+  // Retained Dependencies
+  let echoSocket: EchoSocket
+  
+  init(localUser: LocalUser, echoSocket: EchoSocket) {
+    self.echoSocket = echoSocket
+    echoSocket.connect()
+    
+    echoSocket.text <~ text
+    echo <~ echoSocket.echo
+    
     let loginAction: Action<String, Void, NoError> = Action(enabledIf: loginEnabled) { [unowned self] username in
       localUser.authenticated(user_id: 1, username: username)
       self.loggedIn.value = true

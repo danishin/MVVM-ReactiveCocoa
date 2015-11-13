@@ -10,15 +10,15 @@ import RealmSwift
 import Decodable
 
 final class User: Object {
+  dynamic var username: String = ""
   dynamic var name: String = ""
   dynamic var email: String = ""
-  dynamic var username: String = ""
   dynamic var password: String = ""
   dynamic var imageUrl: String = ""
   
   dynamic var comment: String = ""
   
-  override static func primaryKey() -> String? { return "email" }
+  override static func primaryKey() -> String? { return "username" }
 }
 
 extension User: Decodable {

@@ -21,7 +21,7 @@ extension SwinjectStoryboard {
     c.register(DB.self) { r in RealmDB(config: r.get(Config), localUser: r.get(LocalUser)) }.inObjectScope(.Container)
     
     /* ViewModel */
-    c.register(LoginViewModel.self) { r in LoginViewModel(localUser: r.get(LocalUser)) }
+    c.register(LoginViewModel.self) { r in LoginViewModel(localUser: r.get(LocalUser), echoSocket: EchoSocket()) }
     c.register(UsersViewModel.self) { r in UsersViewModel(api: r.get(API), db: r.get(DB)) }.inObjectScope(.Container)
     
     /* View */
